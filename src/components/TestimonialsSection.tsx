@@ -1,106 +1,40 @@
-// Importações da biblioteca Swiper
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-
-// Importação dos estilos da Swiper (essencial)
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { ArrowRight } from "lucide-react";
 
 const TestimonialsSection = () => {
-  // Array com depoimentos e descrições fiéis ao conteúdo dos vídeos
-  const videoTestimonials = [
-    {
-      name: "Jhonata Lopes", 
-      youtubeVideoId: "mXSFwabhyNo",
-      description: '"O treinamento foi um divisor de águas, me dando clareza e ferramentas para alcançar resultados que eu buscava há muito tempo."'
-    },
-    {
-      name: "Jociely Ribeiro", 
-      youtubeVideoId: "Xmft6_Eg-20",
-      description: '"Eu me redescobri. O curso me ajudou a derrubar uma muralha de medo e a encontrar a grandeza que existe dentro de mim."'
-    },
-    {
-      name: "Ana Nere", 
-      youtubeVideoId: "_l80iApyibg",
-      description: '"Foi uma jornada de crescimento imenso. Aprendi a ressignificar minha história e a ver a vida com muito mais gratidão e propósito."'
-    },
-    {
-      name: "Jorge Florêncio", 
-      youtubeVideoId: "afrfoLPQFl0",
-      description: '"Eu me sentia travado, sem sair do lugar. O curso foi a experiência transformadora que me fez quebrar barreiras internas e evoluir."'
-    },
-    {
-      name: "Letícia Chagas", 
-      youtubeVideoId: "b1FLpd-LKnA",
-      description: '"Mais do que um curso, foi um processo de autoconhecimento profundo que me reconectou com a minha verdadeira essência e força."'
-    }
+  const moments = [
+    "apresentar projetos",
+    "liderar reuniões",
+    "gravar vídeos",
+    "vender ideias",
+    "participar de entrevistas",
+    "conduzir conversas difíceis",
   ];
 
   return (
-    <section className="relative bg-black py-20 px-4 sm:px-6 overflow-hidden">
-      <div className="container max-w-7xl mx-auto">
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
-            Transformações <span className="text-turquoise">Reais, em Vídeo</span>
-          </h2>
-          <p className="max-w-2xl mx-auto mt-4 text-gray-400">
-            Nossos alunos não apenas falam sobre a mudança, eles a mostram. Deslize para ver mais histórias de sucesso.
+    <section className="bg-white px-4 py-16 text-black sm:px-6 lg:py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 flex flex-col justify-between gap-6 border-b border-gray-200 pb-8 lg:flex-row lg:items-end">
+          <div>
+            <p className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-[#008C99]">
+              Aplicações reais
+            </p>
+            <h2 className="max-w-3xl text-3xl font-black leading-none sm:text-5xl">
+              Oratória para os momentos que movem carreira e negócio.
+            </h2>
+          </div>
+          <p className="max-w-md text-lg leading-relaxed text-gray-700">
+            O treino não fica preso ao palco. Ele é aplicado nas conversas que
+            você realmente precisa enfrentar.
           </p>
         </div>
-        
-        <div 
-          className="relative"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <Swiper
-            modules={[Navigation, Pagination]}
-            spaceBetween={30}
-            slidesPerView={1}
-            navigation={true}
-            pagination={{ clickable: true }}
-            breakpoints={{
-              640: { // sm
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              1024: { // lg
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-            }}
-            className="pb-16"
-          >
-            {videoTestimonials.map((testimonial, index) => (
-              <SwiperSlide key={index}>
-                <div className="flex flex-col h-full items-center">
 
-                  <div className="w-full max-w-[300px] aspect-[9/16] rounded-lg overflow-hidden border border-gray-800">
-                    <iframe
-                      className="w-full h-full"
-                      src={`https://www.youtube.com/embed/${testimonial.youtubeVideoId}`}
-                      title={`Depoimento de ${testimonial.name}`}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    ></iframe>
-                  </div>
-
-                  <div className="text-center mt-4 w-full max-w-[300px]">
-                    <p className="font-bold text-white text-lg">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-turquoise italic text-sm mt-1">
-                      {testimonial.description}
-                    </p>
-                  </div>
-
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {moments.map((moment) => (
+            <div key={moment} className="flex min-h-20 items-center justify-between gap-4 bg-[#F7FCFD] px-5 py-4 ring-1 ring-black/5">
+              <p className="text-xl font-black leading-tight">{moment}</p>
+              <ArrowRight className="h-5 w-5 flex-shrink-0 text-[#008C99]" />
+            </div>
+          ))}
         </div>
       </div>
     </section>

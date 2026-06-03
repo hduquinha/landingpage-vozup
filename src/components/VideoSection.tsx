@@ -1,76 +1,65 @@
+import { Activity, MessageSquare, Mic, Sparkles, Timer, TrendingUp } from "lucide-react";
+import speakerCoach from "@/assets/speaker-coach-commercial.png";
+
 const VideoSection = () => {
+  const steps = [
+    { icon: Mic, title: "Voz", text: "respiração, dicção, volume, ritmo e pausas" },
+    { icon: Activity, title: "Corpo", text: "postura, presença, gestos e contato visual" },
+    { icon: MessageSquare, title: "Mensagem", text: "roteiro, clareza, histórias e argumentação" },
+    { icon: Sparkles, title: "Emoção", text: "ansiedade, confiança e liderança sob pressão" },
+  ];
+
   return (
-    <section className="relative bg-gradient-to-br from-black via-slate-950 to-orange-900/20 py-20 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute -top-10 -right-10 w-80 h-80 bg-orange-500/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-turquoise/20 rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative z-10 container mx-auto max-w-6xl">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr,0.9fr] items-center">
-          <div className="text-left space-y-6" data-aos="fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-turquoise">
-              Experimente antes da imersão
-            </span>
-
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white leading-tight">
-              Uma prévia do que você vai viver no <span className="text-turquoise">Firewalking</span>
+    <section className="relative overflow-hidden bg-[#F7FCFD] px-4 py-16 text-black sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr,1.2fr] lg:items-center">
+          <div>
+            <p className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-cyan-700">
+              Método VozUP
+            </p>
+            <h2 className="text-3xl font-black leading-none sm:text-5xl">
+              Mais rápido porque você treina desde a primeira aula.
             </h2>
-
-            <p className="text-lg text-gray-300">
-              O firewalking é mais do que apenas uma caminhada sobre brasas; é um símbolo de nossa capacidade de superar desafios e alcançar nossos objetivos. É um lembrete de que somos capazes de mais do que imaginamos, e que a coragem e a determinação podem nos levar a lugares incríveis. E que podemos resgatar aquilo que já existe dentro de nós
+            <p className="mt-5 text-lg leading-relaxed text-gray-700">
+              Enquanto métodos tradicionais costumam prender o aluno em muita
+              teoria, a VozUP acelera a evolução com prática, correção imediata
+              e repetição guiada.
             </p>
 
-            <ul className="space-y-5 text-gray-300">
-              <li className="flex gap-4">
-                <span className="text-3xl" role="img" aria-label="Ícone fogo">🔥</span>
-                <div>
-                  <h3 className="text-xl font-semibold text-white">Mentalidade de crescimento</h3>
-                  <p className="text-sm sm:text-base text-gray-400">
-                    Descubra as técnicas que utilizamos para reprogramar crenças limitantes e colocar você no estado de ação.
-                  </p>
-                </div>
-              </li>
-              <li className="flex gap-4">
-                <span className="text-3xl" role="img" aria-label="Ícone bússola">🧭</span>
-                <div>
-                  <h3 className="text-xl font-semibold text-white">Liderança na prática</h3>
-                  <p className="text-sm sm:text-base text-gray-400">
-                    Veja como cada dinâmica da imersão foi pensada para elevar sua comunicação e sua capacidade de liderar pessoas sob pressão.
-                  </p>
-                </div>
-              </li>
-              <li className="flex gap-4">
-                <span className="text-3xl" role="img" aria-label="Ícone escudo">🛡️</span>
-                <div>
-                  <h3 className="text-xl font-semibold text-white">Firewalking com segurança</h3>
-                  <p className="text-sm sm:text-base text-gray-400">
-                    Entenda passo a passo como guiamos você até o momento da travessia — todas as pessoas concluem o Firewalking com sucesso.
-                  </p>
-                </div>
-              </li>
-            </ul>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <div className="bg-white p-5 shadow-sm">
+                <Timer className="mb-3 h-7 w-7 text-[#008C99]" />
+                <p className="text-lg font-black">Menos teoria solta</p>
+                <p className="mt-1 text-sm text-gray-600">Mais exercícios aplicados ao seu objetivo real.</p>
+              </div>
+              <div className="bg-[#111827] p-5 text-white shadow-sm">
+                <TrendingUp className="mb-3 h-7 w-7 text-[#7BE7EF]" />
+                <p className="text-lg font-black">Mais evolução percebida</p>
+                <p className="mt-1 text-sm text-gray-300">Você fala, ajusta e melhora no próprio treino.</p>
+              </div>
+            </div>
           </div>
 
-          <div className="flex justify-center" data-aos="fade-up" data-aos-delay="150">
-            <div className="relative w-full max-w-[360px] sm:max-w-[420px] md:max-w-[500px] xl:max-w-[560px]">
-              <div className="absolute inset-0 translate-x-6 translate-y-6 rounded-[40px] bg-gradient-to-br from-orange-500/40 to-turquoise/30 blur-3xl opacity-60" />
-              <div className="relative rounded-[36px] border border-white/15 bg-black/80 p-5 shadow-[0_35px_100px_rgba(255,140,0,0.35)]">
+          <div className="relative bg-white p-5 shadow-xl sm:p-7">
+            <img
+              src={speakerCoach}
+              alt="Treinador de oratória orientando aluno"
+              className="mx-auto mb-4 max-h-[360px] w-auto object-contain drop-shadow-xl lg:absolute lg:-left-20 lg:bottom-0 lg:mb-0 lg:max-h-[520px]"
+            />
+            <div className="lg:ml-56">
+              {steps.map((step, index) => (
                 <div
-                  className="relative w-full overflow-hidden rounded-[28px] border border-white/10"
-                  style={{ aspectRatio: "9 / 16" }}
+                  key={step.title}
+                  className="grid gap-3 border-b border-gray-200 py-5 last:border-b-0 sm:grid-cols-[72px,1fr,auto] sm:items-center"
                 >
-                  <iframe
-                    className="h-full w-full"
-                    src="https://www.instagram.com/reel/DQUz2r-CbdJ/embed"
-                    title="Prévia do treinamento Comunicação e Liderança - Firewalking"
-                    frameBorder="0"
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    allowFullScreen
-                    loading="lazy"
-                  />
+                  <span className="font-mono text-3xl font-black text-black/10">0{index + 1}</span>
+                  <div>
+                    <h3 className="text-xl font-black sm:text-2xl">{step.title}</h3>
+                    <p className="mt-1 text-sm text-gray-600 sm:text-base">{step.text}</p>
+                  </div>
+                  <step.icon className="h-8 w-8 text-[#008C99]" />
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

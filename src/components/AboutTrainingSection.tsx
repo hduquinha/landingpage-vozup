@@ -1,88 +1,67 @@
-import React from 'react';
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { openWhatsApp } from "@/lib/lead";
 
 const AboutTrainingSection = () => {
-  const objectives = [
-    "Desenvolver habilidades de liderança emocional e inspirar sua equipe",
-    "Comunicar-se de forma eficaz e construir relações fortes",
-    "Gerenciar estresse e ansiedade e encontrar mais equilíbrio em sua vida",
-    "Descobrir seu potencial e alcançar seus objetivos"
+  const results = [
+    "Apresentar ideias sem se perder no raciocínio",
+    "Controlar voz trêmula, ansiedade e branco na hora H",
+    "Usar postura, pausas e entonação para prender atenção",
+    "Falar com firmeza em reuniões, vendas, vídeos e entrevistas",
   ];
-
-  const gains = [
-    "Autoconfiança e autoestima para liderar com autoridade",
-    "Habilidades sociais e de relacionamento para construir redes de apoio",
-    "Resiliência e capacidade de lidar com desafios para superar obstáculos",
-    "Um certificado de conclusão para validar suas habilidades"
-  ];
-
-  const scrollToPricing = () => {
-    const pricingSection = document.querySelector('#pricing');
-    if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
-    <section className="bg-gray-900 py-20 px-4 sm:px-6">
-      <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
-            Desbloqueie Seu Potencial com o <span className="text-turquoise">UP DAY PLUS!</span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Você está preparado para transformar sua vida e carreira? O treinamento UP DAY PLUS é uma experiência única e transformadora.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-          <div className="space-y-8" data-aos="fade-right">
-            <div className="bg-black/30 p-8 rounded-2xl border border-gray-800">
-              <h3 className="text-2xl font-bold text-white mb-6">
-                O treinamento vai ajudá-lo a:
-              </h3>
-              <ul className="space-y-4">
-                {objectives.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-turquoise flex-shrink-0 mt-1" />
-                    <span className="text-gray-300 text-lg">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Com dinâmicas de alto impacto e exercícios vivenciais, você vai experimentar uma jornada de autoconhecimento e crescimento pessoal. Nossa equipe irá guiá-la em uma jornada de descoberta e desenvolvimento de habilidades práticas e aplicáveis.
+    <section id="lead" className="relative overflow-hidden bg-white px-4 py-16 text-black sm:px-6 lg:py-24">
+      <div className="absolute left-0 top-0 hidden h-full w-2 bg-[#00AFC1] sm:block" />
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr,1.1fr] lg:items-end">
+          <div>
+            <p className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-cyan-700">
+              Comunicação é treino
             </p>
+            <h2 className="text-3xl font-black leading-none sm:text-5xl lg:text-6xl">
+              Não é dom.
+              <span className="block text-[#008C99]">É método.</span>
+            </h2>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-800 to-black p-8 rounded-2xl border border-turquoise/20" data-aos="fade-left">
-            <h3 className="text-2xl font-bold text-white mb-6">
-              O que você vai ganhar?
-            </h3>
-            <ul className="space-y-6">
-              {gains.map((item, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <div className="bg-turquoise/10 p-2 rounded-lg">
-                    <CheckCircle2 className="w-5 h-5 text-turquoise" />
-                  </div>
-                  <span className="text-gray-300 text-lg">{item}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="mt-10 pt-8 border-t border-gray-700">
-              <p className="text-white font-semibold mb-6 text-center">
-                Não perca a chance de potencializar sua vida!
-              </p>
-              <button 
-                onClick={scrollToPricing}
-                className="w-full bg-turquoise hover:bg-turquoise-light text-black font-bold py-4 px-8 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group"
+          <div className="border-l border-gray-300 pl-5">
+            <p className="text-lg leading-relaxed text-gray-700 sm:text-xl">
+              A VozUP tira a oratória do campo da teoria. O aluno fala, recebe
+              direção, ajusta e repete até construir uma comunicação mais
+              natural, segura e influente.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1fr,0.72fr]">
+          <div className="space-y-1">
+            {results.map((item, index) => (
+              <div
+                key={item}
+                className="flex items-start gap-4 border-b border-gray-200 py-5 transition hover:border-cyan-400"
               >
-                Inscreva-se Agora
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+                <span className="mt-1 font-mono text-sm font-bold text-cyan-600">0{index + 1}</span>
+                  <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#008C99]" />
+                <p className="text-lg font-bold leading-snug sm:text-xl">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-[#111827] p-6 text-white sm:p-7">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#7BE7EF]">
+              Para quem é
+            </p>
+            <p className="mt-5 text-2xl font-black leading-tight sm:text-3xl">
+              Profissionais, líderes, vendedores, empreendedores e pessoas que
+              cansaram de falar menos do que sabem.
+            </p>
+            <button
+              onClick={() => openWhatsApp("seção de benefícios")}
+              className="mt-8 inline-flex w-full items-center justify-center gap-2 bg-[#00AFC1] px-5 py-4 text-center font-black text-white transition hover:bg-white hover:text-black sm:w-auto"
+            >
+              Quero destravar minha comunicação
+              <ArrowRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </div>

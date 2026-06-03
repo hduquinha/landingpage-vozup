@@ -1,112 +1,88 @@
-import { Brain, Users, Target, Lightbulb } from "lucide-react";
+import { BadgeCheck, BriefcaseBusiness, MessageCircle, Timer, Trophy, Zap } from "lucide-react";
 
 const TrainingContentSection = () => {
-  const pillars = [
+  const modules = [
+    "Abrir uma fala com impacto",
+    "Apresentar ideias com começo, meio e fim",
+    "Usar pausas, volume e entonação",
+    "Improvisar sem perder a linha",
+    "Responder perguntas difíceis",
+    "Transmitir autoridade sem parecer artificial",
+  ];
+
+  const advantages = [
     {
-      icon: Brain,
-      title: "Autoconhecimento Emocional",
-      subtitle: "Mapeie suas emoções e comportamentos automáticos",
-      highlights: [
-        "Identificação de padrões que sabotam seus resultados",
-        "Mapeamento das emoções primárias e seus gatilhos",
-        "Descoberta da origem de crenças limitantes pessoais"
-      ]
+      icon: Timer,
+      title: "Mais rápido",
+      text: "Você pratica desde o primeiro encontro, sem esperar semanas de teoria.",
     },
     {
-      icon: Lightbulb,
-      title: "Reprogramação Mental",
-      subtitle: "Transforme crenças limitantes em crenças de sucesso",
-      highlights: [
-        "Técnicas de ressignificação de memórias traumáticas",
-        "Eliminação de diálogos internos negativos e autossabotagem",
-        "Instalação de programações mentais de alta performance"
-      ]
+      icon: Zap,
+      title: "Mais eficaz",
+      text: "Feedback direto no seu jeito de falar, com ajustes aplicados na hora.",
     },
     {
-      icon: Target,
-      title: "Domínio Emocional",
-      subtitle: "Controle total sobre seus estados emocionais",
-      highlights: [
-        "Técnicas avançadas de controle de impulsos e ansiedade",
-        "Transformação de reações automáticas em respostas conscientes",
-        "Uso estratégico das emoções para tomada de decisão"
-      ]
+      icon: BadgeCheck,
+      title: "Mais objetivo",
+      text: "Treinos conectados ao seu uso real: carreira, vendas, liderança e vídeos.",
     },
-    {
-      icon: Users,
-      title: "Liderança e Comunicação",
-      subtitle: "Desenvolva presença magnética e influência natural",
-      highlights: [
-        "Comunicação assertiva e técnicas de persuasão ética",
-        "Construção de rapport instantâneo e conexões genuínas",
-        "Liderança natural e gestão eficaz de conflitos"
-      ]
-    }
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-turquoise/10 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]"></div>
-      </div>
-      
-      <div className="relative z-10 container max-w-7xl mx-auto">
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider mb-6">
-            O que você vai <span className="text-turquoise">Dominar</span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Metodologia completa para transformar sua comunicação, liderança e inteligência emocional em 2 dias intensivos
+    <section className="bg-white px-4 py-16 text-black sm:px-6 lg:py-20">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 flex flex-col justify-between gap-6 border-b border-gray-200 pb-8 lg:flex-row lg:items-end">
+          <div>
+            <p className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-[#008C99]">
+              Conteúdo e vantagem
+            </p>
+            <h2 className="max-w-3xl text-3xl font-black leading-none sm:text-5xl">
+              O treino que faz a fala evoluir mais rápido.
+            </h2>
+          </div>
+          <p className="max-w-md text-base leading-relaxed text-gray-600 sm:text-lg">
+            A diferença da VozUP está em reduzir o tempo entre aprender,
+            praticar, corrigir e aplicar na vida real.
           </p>
         </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {pillars.map((pillar, index) => (
-            <div 
-              key={index}
-              className="bg-black/50 rounded-2xl p-8 border border-gray-800 hover:border-turquoise/30 transition-all duration-500 hover:scale-[1.02]"
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-            >
-              <div className="flex items-start gap-4 mb-6">
-                <div className="bg-turquoise/20 rounded-full p-3 flex-shrink-0">
-                  <pillar.icon className="h-8 w-8 text-turquoise" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2 leading-tight">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-turquoise text-sm font-semibold">
-                    {pillar.subtitle}
-                  </p>
-                </div>
+
+        <div className="grid gap-8 lg:grid-cols-[1.1fr,0.9fr]">
+          <div className="grid gap-x-8 md:grid-cols-2">
+            {modules.map((item) => (
+              <div key={item} className="flex gap-4 border-b border-gray-200 py-5">
+                <BadgeCheck className="mt-1 h-6 w-6 flex-shrink-0 text-[#008C99]" />
+                <p className="text-lg font-bold leading-snug sm:text-xl">{item}</p>
               </div>
-              
-              <ul className="space-y-3">
-                {pillar.highlights.map((highlight, highlightIndex) => (
-                  <li key={highlightIndex} className="flex items-start gap-3 text-gray-300">
-                    <span className="w-2 h-2 bg-turquoise rounded-full mt-2 flex-shrink-0"></span>
-                    <span className="text-sm leading-relaxed">{highlight}</span>
-                  </li>
-                ))}
-              </ul>
+            ))}
+          </div>
+
+          <div className="bg-[#111827] p-6 text-white sm:p-7">
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#7BE7EF]">
+              VozUP vs. cursos tradicionais
+            </p>
+            <div className="mt-6 space-y-5">
+              {advantages.map((item) => (
+                <div key={item.title} className="flex gap-4 border-t border-white/10 pt-5">
+                  <item.icon className="mt-1 h-7 w-7 flex-shrink-0 text-[#7BE7EF]" />
+                  <div>
+                    <h3 className="text-xl font-black">{item.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-gray-300">{item.text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="bg-gradient-to-r from-turquoise/10 to-blue-500/10 rounded-2xl p-8 border border-turquoise/20 text-center" data-aos="fade-up">
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            🎯 Metodologia Comprovada + Experiência Única
-          </h3>
-          <p className="text-lg text-gray-300 max-w-4xl mx-auto mb-6">
-            Uma jornada completa que vai <strong className="text-turquoise">reprogramar sua mente</strong> e 
-            <strong className="text-turquoise"> elevar sua confiança</strong> a níveis que você nunca imaginou.
-          </p>
-          
-          <div className="flex justify-center mt-8">
-            <div className="bg-black/30 rounded-xl p-6 max-w-md w-full">
-              <h4 className="text-turquoise font-bold text-lg mb-2">Parte Teórica + Prática</h4>
-              <p className="text-gray-400 text-sm">Metodologia estruturada com exercícios práticos e aplicação imediata</p>
+
+            <div className="mt-8 grid gap-4 border-t border-white/10 pt-6">
+              {[
+                { icon: BriefcaseBusiness, text: "Mais segurança em reuniões e entrevistas" },
+                { icon: MessageCircle, text: "Comunicação mais clara em conversas difíceis" },
+                { icon: Trophy, text: "Presença para liderar e defender ideias" },
+              ].map((item) => (
+                <div key={item.text} className="flex gap-3">
+                  <item.icon className="mt-1 h-5 w-5 flex-shrink-0 text-[#7BE7EF]" />
+                  <p className="font-bold leading-tight">{item.text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

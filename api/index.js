@@ -3,6 +3,7 @@ const path = require('path');
 // Carrega variáveis de ambiente no local (não afeta Vercel)
 try {
   require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+  require('dotenv').config({ path: path.resolve(__dirname, '../.env.local'), override: true });
 } catch {}
 
 const cors = require('cors');
@@ -201,6 +202,72 @@ function normalizeEmail(email) {
   return email.toLowerCase().trim();
 }
 
+function normalizeWhatsAppNumber(number) {
+  if (!number) return '';
+  const digits = String(number).replace(/\D/g, '');
+  if (!digits) return '';
+  if (digits.startsWith('55')) return digits;
+  if (digits.length === 10 || digits.length === 11) return `55${digits}`;
+  return digits;
+}
+
+function buildVozupLeadMessage({ nome, telefone, objetivo, source }) {
+  return [
+    'Novo lead VozUP - Aula Experimental',
+    `Nome: ${nome || '-'}`,
+    `WhatsApp: ${telefone || '-'}`,
+    `Objetivo: ${objetivo || '-'}`,
+    `Origem: ${source || 'Landing Page VozUP'}`,
+    `Recebido em: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`,
+  ].join('\n');
+}
+
+async function sendUazapiText({ number, text }) {
+  const baseUrl = (getEnv('UAZAPI_BASE_URL') || 'https://free.uazapi.com').replace(/\/+$/, '');
+  const token = getEnv('UAZAPI_INSTANCE_TOKEN');
+
+  if (!token) {
+    throw new Error('UAZAPI_INSTANCE_TOKEN nao configurado');
+  }
+
+  const response = await fetch(`${baseUrl}/send/text`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      token,
+    },
+    body: JSON.stringify({
+      number: normalizeWhatsAppNumber(number),
+      text,
+    }),
+  });
+
+  const raw = await response.text();
+  let data;
+  try {
+    data = raw ? JSON.parse(raw) : {};
+  } catch {
+    data = { raw };
+  }
+
+  if (!response.ok) {
+    const providerMessage =
+      data.provider_message_ptbr ||
+      data.message_ptbr ||
+      data.provider_message ||
+      data.message ||
+      data.error ||
+      raw ||
+      `UAZAPI retornou HTTP ${response.status}`;
+    const error = new Error(providerMessage);
+    error.status = response.status;
+    error.response = data;
+    throw error;
+  }
+
+  return data;
+}
+
 // Upsert pessoa por telefone normalizado
 async function upsertPessoa({ nome, telefone, email, cidade, estado, profissao, origem }) {
   const telNorm = normalizeTelefone(telefone);
@@ -293,12 +360,12 @@ app.post('/api/inscricao', async (req, res) => {
           cidade: body.cidade || '',
           estado: body.estado || '',
           profissao: body.profissao_area || '',
-          origem: 'Landing Page UP Day'
+          origem: body.origem || 'Landing Page VozUP'
         });
 
         // Garantir treinamento
-        const treinamentoCodigo = dataTreinamento || '15 e 16/08';
-        const treinamentoNome = body.treinamento_nome || `UP Day ${treinamentoCodigo}`;
+        const treinamentoCodigo = dataTreinamento || 'vozup-aula-experimental';
+        const treinamentoNome = body.treinamento_nome || 'VozUP Aula Experimental';
         const treinamento = await ensureTreinamento(
           treinamentoCodigo,
           treinamentoNome,
@@ -349,7 +416,7 @@ app.post('/api/inscricao', async (req, res) => {
           utm_source: body.utm_source,
           utm_medium: body.utm_medium,
           utm_campaign: body.utm_campaign,
-          origem: 'landing-inscricao-agosto-2026',
+          origem: body.origem || 'landing-vozup',
           clientId: clientId,
           timestamp: body.timestamp
         };
@@ -376,6 +443,75 @@ app.post('/api/inscricao', async (req, res) => {
     const details = error?.message || 'Erro desconhecido';
     console.error('Erro ao salvar inscrição:', details);
     res.status(500).json({ error: 'Erro ao salvar inscrição', details });
+  }
+});
+
+app.post('/api/lead-vozup', async (req, res) => {
+  const body = req.body || {};
+  const nome = String(body.nome || '').trim();
+  const telefone = String(body.telefone || '').trim();
+  const objetivo = String(body.objetivo || '').trim();
+  const source = String(body.source || body.origem || 'Landing Page VozUP').trim();
+
+  if (!nome || !telefone) {
+    return res.status(400).json({ error: 'Nome e telefone sao obrigatorios.' });
+  }
+
+  const notifyNumber = normalizeWhatsAppNumber(
+    getEnv('UAZAPI_NOTIFY_NUMBER') || getEnv('VITE_WHATSAPP_NUMBER') || getEnv('WHATSAPP_NUMBER')
+  );
+
+  if (!notifyNumber) {
+    return res.status(500).json({
+      error: 'Numero de destino nao configurado',
+      details: 'Defina UAZAPI_NOTIFY_NUMBER com o WhatsApp que recebera os leads.',
+    });
+  }
+
+  const leadPayload = {
+    _final: true,
+    _step: 'lead-vozup',
+    nome,
+    telefone,
+    objetivo,
+    treinamento_nome: 'VozUP Aula Experimental',
+    data_treinamento: 'vozup-aula-experimental',
+    origem: 'Landing Page VozUP',
+    source,
+    timestamp: new Date().toISOString(),
+  };
+
+  let db = { ok: false };
+  try {
+    if (pool && !poolConfigError) {
+      await ensureTable();
+      await pool.query(
+        `INSERT INTO inscricoes.inscricoes (payload) VALUES ($1::jsonb)`,
+        [JSON.stringify(leadPayload)]
+      );
+      db = { ok: true };
+    } else {
+      db = { ok: false, skipped: true, reason: poolConfigError || 'Banco nao configurado' };
+    }
+  } catch (error) {
+    db = { ok: false, error: error.message };
+  }
+
+  try {
+    const uazapi = await sendUazapiText({
+      number: notifyNumber,
+      text: buildVozupLeadMessage({ nome, telefone, objetivo, source }),
+    });
+
+    res.status(200).json({ ok: true, db, uazapi });
+  } catch (error) {
+    res.status(error.status || 502).json({
+      ok: false,
+      error: 'Erro ao enviar mensagem pela UAZAPI',
+      details: error.message,
+      provider: error.response || null,
+      db,
+    });
   }
 });
 

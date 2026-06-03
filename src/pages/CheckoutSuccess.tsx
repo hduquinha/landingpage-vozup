@@ -1,58 +1,36 @@
-import React, { useEffect } from 'react';
-import { CheckCircle } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { useEffect } from "react";
+import { CheckCircle } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 
-const CheckoutSuccess: React.FC = () => {
+const CheckoutSuccess = () => {
   useEffect(() => {
-    // Scroll para o topo da página
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md mx-auto text-center">
+    <div className="flex min-h-screen items-center justify-center bg-cyan-50 p-4">
+      <Card className="mx-auto w-full max-w-md text-center">
         <CardHeader>
-          <div className="mx-auto mb-4 w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-cyan-100">
+            <CheckCircle className="h-8 w-8 text-cyan-700" />
           </div>
-          <CardTitle className="text-2xl font-bold text-green-800">
-            Pagamento Aprovado!
-          </CardTitle>
-          <CardDescription className="text-green-600">
-            Sua compra foi processada com sucesso
+          <CardTitle className="text-2xl font-bold text-cyan-900">Contato recebido</CardTitle>
+          <CardDescription className="text-cyan-700">
+            A equipe da VozUP vai orientar os próximos passos.
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-4">
-          <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-            <p className="text-sm text-green-800">
-              🎉 <strong>Parabéns!</strong> Você foi adicionado ao nosso Grupo VIP.
-            </p>
-            <p className="text-sm text-green-700 mt-2">
-              Em breve você receberá um email com todas as informações 
-              sobre como acessar o conteúdo.
+          <div className="rounded-lg border border-cyan-200 bg-cyan-50 p-4">
+            <p className="text-sm text-cyan-900">
+              Obrigado pelo interesse na VozUP Escola de Oratória e Liderança Emocional.
             </p>
           </div>
 
-          <div className="space-y-2 text-sm text-gray-600">
-            <p>✅ Pagamento confirmado</p>
-            <p>✅ Email de confirmação enviado</p>
-            <p>✅ Acesso ao conteúdo liberado</p>
-          </div>
-
-          <div className="pt-4">
-            <Button 
-              onClick={() => window.location.href = '/'}
-              className="w-full"
-            >
-              Voltar ao Início
-            </Button>
-          </div>
-
-          <p className="text-xs text-gray-500">
-            Se você tiver alguma dúvida, entre em contato conosco.
-          </p>
+          <Button onClick={() => (window.location.href = "/")} className="w-full">
+            Voltar ao início
+          </Button>
         </CardContent>
       </Card>
     </div>
