@@ -8,6 +8,8 @@ const businessName = "Escola VozUP de Oratória e Liderança Emocional";
 const siteTitle = "Escola VozUP | Curso de Oratória no Tatuapé";
 const siteDescription =
   "Escola VozUP de oratória e liderança emocional no Tatuapé, São Paulo. Treine fala em público, voz, presença e comunicação com método prático.";
+const defaultProductionSiteUrl = "https://www.escolavozup.com";
+const defaultGtmId = "GTM-MWVSCMS2";
 const socialImagePath = "/og-vozup.jpg";
 const logoPath = "/vozup-logo.png";
 const mapUrl =
@@ -69,7 +71,9 @@ const getVercelProductionUrl = (env: Record<string, string>) => {
 };
 
 const getSiteUrl = (env: Record<string, string>) => {
-  return normalizeUrl(env.VITE_SITE_URL || env.PUBLIC_SITE_URL || getVercelProductionUrl(env));
+  return normalizeUrl(
+    env.VITE_SITE_URL || env.PUBLIC_SITE_URL || getVercelProductionUrl(env) || defaultProductionSiteUrl,
+  );
 };
 
 const absoluteUrl = (siteUrl: string, pathname: string) => {
@@ -226,7 +230,7 @@ const buildStructuredData = (siteUrl: string, env: Record<string, string>) => {
 const seoAndMarketingPlugin = (mode: string): PluginOption => {
   const env = loadEnv(mode, process.cwd(), "");
   const siteUrl = getSiteUrl(env);
-  const gtmId = env.VITE_GTM_ID?.trim();
+  const gtmId = env.VITE_GTM_ID?.trim() || defaultGtmId;
   const gaMeasurementId = env.VITE_GA_MEASUREMENT_ID?.trim();
   const googleSiteVerification = env.VITE_GOOGLE_SITE_VERIFICATION?.trim();
   const robotsContent =

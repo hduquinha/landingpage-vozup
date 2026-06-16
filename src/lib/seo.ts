@@ -2,6 +2,8 @@ export const siteName = "Escola VozUP";
 
 export const businessName = "Escola VozUP de Oratória e Liderança Emocional";
 
+const defaultProductionSiteUrl = "https://www.escolavozup.com";
+
 export const businessAddress = {
   streetAddress: "Rua Azevedo Soares, 1334",
   neighborhood: "Tatuapé",
@@ -70,11 +72,7 @@ export const getSiteUrl = () => {
   const configuredUrl = normalizeUrl(import.meta.env.VITE_SITE_URL);
   if (configuredUrl) return configuredUrl;
 
-  if (typeof window !== "undefined" && window.location.origin) {
-    return window.location.origin.replace(/\/+$/, "");
-  }
-
-  return "";
+  return defaultProductionSiteUrl;
 };
 
 export const absoluteUrl = (path: string, baseUrl = getSiteUrl()) => {

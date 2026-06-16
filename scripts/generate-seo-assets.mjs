@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 
 const rootDir = process.cwd();
 const distDir = resolve(rootDir, "dist");
+const defaultProductionSiteUrl = "https://www.escolavozup.com";
 
 const parseEnvFile = (filePath) => {
   if (!existsSync(filePath)) return {};
@@ -52,9 +53,8 @@ const fileEnv = [
 ].reduce((env, fileName) => ({ ...env, ...parseEnvFile(resolve(rootDir, fileName)) }), {});
 
 const env = { ...fileEnv, ...process.env };
-const siteUrl = normalizeUrl(
-  env.VITE_SITE_URL || env.PUBLIC_SITE_URL || getVercelProductionUrl(env),
-);
+const configuredSiteUrl = env.VITE_SITE_URL || env.PUBLIC_SITE_URL || getVercelProductionUrl(env);
+const siteUrl = normalizeUrl(configuredSiteUrl || defaultProductionSiteUrl);
 const noindexSite = env.VITE_ROBOTS_NOINDEX === "true";
 
 mkdirSync(distDir, { recursive: true });
@@ -71,25 +71,19 @@ Disallow: /
   process.exit(0);
 }
 
-const robots = siteUrl
-  ? `User-agent: *
+const robots = `User-agent: *
 Allow: /
 Disallow: /api/
 
 Sitemap: ${siteUrl}/sitemap.xml
-`
-  : `User-agent: *
-Allow: /
-Disallow: /api/
-
-# Defina VITE_SITE_URL para gerar a linha Sitemap em produção.
 `;
 
 writeFileSync(resolve(distDir, "robots.txt"), robots, "utf8");
 
-if (!siteUrl) {
-  console.warn("SEO: VITE_SITE_URL não definido; sitemap.xml não foi gerado.");
-  process.exit(0);
+if (!configuredSiteUrl) {
+  console.warn(
+    `SEO: VITE_SITE_URL nao definido; usando fallback de producao ${defaultProductionSiteUrl}.`,
+  );
 }
 
 const lastmod = new Date().toISOString().slice(0, 10);
