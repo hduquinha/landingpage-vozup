@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import Checkout from "./pages/Checkout";
+import SeoManager from "./components/SeoManager";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <SeoManager />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />

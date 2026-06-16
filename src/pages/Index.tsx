@@ -9,26 +9,22 @@ import PricingSection from "@/components/PricingSection";
 import LocationSection from "@/components/LocationSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCtaSection from "@/components/FinalCtaSection";
-import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   return (
-    <>
-      <div className="min-h-screen">
-        <HeroSection />
-        <ProblemsSection />
-        <AboutTrainingSection />
-        <VideoSection />
-        <TestimonialsSection />
-        <TrainersSection />
-        <TrainingContentSection />
-        <PricingSection />
-        <LocationSection />
-        <FAQSection />
-        <FinalCtaSection />
-      </div>
-      <WhatsAppButton />
-    </>
+    <div className="min-h-screen">
+      <HeroSection />
+      <ProblemsSection />
+      <AboutTrainingSection />
+      <VideoSection />
+      <TestimonialsSection />
+      <TrainersSection />
+      <TrainingContentSection />
+      <PricingSection />
+      <LocationSection />
+      <FAQSection />
+      <FinalCtaSection />
+    </div>
   );
 };
 

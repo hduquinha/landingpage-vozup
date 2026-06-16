@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
+import { faqItems } from "@/lib/seo";
 
 const FAQSection = () => {
   const [openItems, setOpenItems] = useState<number[]>([0]);
@@ -9,34 +10,6 @@ const FAQSection = () => {
       prev.includes(index) ? prev.filter((item) => item !== index) : [...prev, index],
     );
   };
-
-  const faqs = [
-    {
-      question: "A VozUP é para quem tem medo de falar em público?",
-      answer:
-        "Sim. A escola atende tanto pessoas que travam ao falar quanto profissionais que já se comunicam bem e querem ganhar mais presença, clareza e liderança.",
-    },
-    {
-      question: "As aulas são presenciais?",
-      answer:
-        "A proposta principal da unidade Tatuapé é presencial, na Rua Azevedo Soares, 1334. A disponibilidade de horários deve ser confirmada com a equipe.",
-    },
-    {
-      question: "Preciso ter experiência com apresentações?",
-      answer:
-        "Não. O método parte do nível atual do aluno e evolui com exercícios práticos, feedback e repetição guiada.",
-    },
-    {
-      question: "O curso serve para liderança e vendas?",
-      answer:
-        "Serve. A comunicação trabalhada na VozUP é aplicada a reuniões, apresentações, negociações, vídeos, liderança de equipes e conversas difíceis.",
-    },
-    {
-      question: "Como faço para saber valores e turmas?",
-      answer:
-        "Clique no botão de WhatsApp da página para falar com a equipe, consultar horários e receber as condições atuais.",
-    },
-  ];
 
   return (
     <section className="bg-white px-4 py-20 text-black sm:px-6">
@@ -49,7 +22,7 @@ const FAQSection = () => {
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {faqItems.map((faq, index) => (
             <div key={faq.question} className="overflow-hidden rounded-lg border border-gray-200">
               <button
                 onClick={() => toggleItem(index)}

@@ -1,3 +1,5 @@
+import { trackWhatsAppClick } from "@/lib/analytics";
+
 export const whatsappNumber = (
   import.meta.env.VITE_WHATSAPP_NUMBER || "5513997832766"
 ).replace(/\D/g, "");
@@ -54,6 +56,7 @@ export const submitLead = async (lead: Required<Pick<LeadData, "name" | "phone" 
 };
 
 export const openWhatsApp = (source?: string) => {
+  trackWhatsAppClick(source);
   window.open(buildWhatsAppLink(source), "_blank", "noopener,noreferrer");
 };
 

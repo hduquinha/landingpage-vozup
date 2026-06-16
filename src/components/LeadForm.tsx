@@ -1,6 +1,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
 import { buildLeadWhatsAppLink, submitLead } from "@/lib/lead";
+import { trackLeadFormSubmit, trackWhatsAppClick } from "@/lib/analytics";
 
 type LeadFormProps = {
   source?: string;
@@ -29,6 +30,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
 
     try {
       await submitLead({ name, phone, goal, source });
+      trackLeadFormSubmit(source, goal);
       setStatus("saved");
     } catch {
       setStatus("error");
@@ -115,6 +117,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
         href={whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick(`${source} - link alternativo`)}
         className="mt-3 flex min-h-12 w-full items-center justify-center border border-gray-300 px-4 py-3 text-center text-sm font-black uppercase text-[#111827] transition hover:border-[#00AFC1] hover:text-[#008C99]"
       >
         Chamar no WhatsApp

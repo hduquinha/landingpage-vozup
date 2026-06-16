@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { buildWhatsAppLink } from "@/lib/lead";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 const Checkout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    trackWhatsAppClick("rota de agendamento");
     window.location.href = buildWhatsAppLink("rota de agendamento");
   }, []);
 
@@ -19,7 +21,12 @@ const Checkout = () => {
           sua aula experimental.
         </p>
         <div className="flex flex-col justify-center gap-3 sm:flex-row">
-          <Button onClick={() => (window.location.href = buildWhatsAppLink("rota de agendamento"))}>
+          <Button
+            onClick={() => {
+              trackWhatsAppClick("botão da rota de agendamento");
+              window.location.href = buildWhatsAppLink("rota de agendamento");
+            }}
+          >
             Abrir WhatsApp agora
           </Button>
           <Button variant="outline" className="bg-transparent text-white" onClick={() => navigate("/")}>

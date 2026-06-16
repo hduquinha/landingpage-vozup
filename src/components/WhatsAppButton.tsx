@@ -1,5 +1,6 @@
 import whatsappLogo from "@/assets/wwplogo.png";
 import { buildWhatsAppLink } from "@/lib/lead";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 const WhatsAppButton = () => {
   return (
@@ -13,6 +14,7 @@ const WhatsAppButton = () => {
         href={buildWhatsAppLink("botão flutuante")}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("botão flutuante")}
         className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] shadow-2xl transition-transform duration-300 hover:scale-110 hover:bg-[#128C7E] animate-pulse-whatsapp"
         aria-label="Fale com a VozUP pelo WhatsApp"
       >
