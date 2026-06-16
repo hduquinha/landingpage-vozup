@@ -3,11 +3,11 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-const siteName = "VozUP";
-const businessName = "VozUP Escola de Oratória e Liderança Emocional";
-const siteTitle = "Curso de Oratória no Tatuapé | VozUP São Paulo";
+const siteName = "Escola VozUP";
+const businessName = "Escola VozUP de Oratória e Liderança Emocional";
+const siteTitle = "Escola VozUP | Curso de Oratória no Tatuapé";
 const siteDescription =
-  "Curso presencial de oratória no Tatuapé, São Paulo. Treine fala em público, voz, presença e liderança emocional com método prático na VozUP.";
+  "Escola VozUP de oratória e liderança emocional no Tatuapé, São Paulo. Treine fala em público, voz, presença e comunicação com método prático.";
 const socialImagePath = "/og-vozup.jpg";
 const logoPath = "/vozup-logo.png";
 const mapUrl =
@@ -15,6 +15,8 @@ const mapUrl =
 
 const seoTopics = [
   "oratória",
+  "Escola VozUP",
+  "VozUP",
   "curso de oratória",
   "falar em público",
   "comunicação",
@@ -115,12 +117,12 @@ const buildStructuredData = (siteUrl: string, env: Record<string, string>) => {
           "@type": ["LocalBusiness", "EducationalOrganization"],
           "@id": organizationId,
           name: businessName,
-          alternateName: siteName,
+          alternateName: ["VozUP", siteName],
           url: canonicalUrl,
           logo: logoUrl,
           image: [imageUrl, logoUrl],
           description: siteDescription,
-          slogan: "Destrave sua fala em público.",
+          slogan: "Destrave sua fala em público na Escola VozUP.",
           telephone: phone ? `+${phone}` : undefined,
           priceRange: "$$",
           sameAs: getSocialProfileUrls(env),
@@ -154,7 +156,7 @@ const buildStructuredData = (siteUrl: string, env: Record<string, string>) => {
         {
           "@type": "Course",
           "@id": courseId,
-          name: "Curso presencial de oratória e liderança emocional",
+          name: "Curso presencial de oratória da Escola VozUP",
           description:
             "Treinamento prático para desenvolver fala em público, presença, voz, segurança e comunicação profissional em aulas presenciais no Tatuapé.",
           provider: {

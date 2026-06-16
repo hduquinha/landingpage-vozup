@@ -1,6 +1,6 @@
-export const siteName = "VozUP";
+export const siteName = "Escola VozUP";
 
-export const businessName = "VozUP Escola de Oratória e Liderança Emocional";
+export const businessName = "Escola VozUP de Oratória e Liderança Emocional";
 
 export const businessAddress = {
   streetAddress: "Rua Azevedo Soares, 1334",
@@ -11,14 +11,16 @@ export const businessAddress = {
 };
 
 export const homeSeo = {
-  title: "Curso de Oratória no Tatuapé | VozUP São Paulo",
+  title: "Escola VozUP | Curso de Oratória no Tatuapé",
   description:
-    "Curso presencial de oratória no Tatuapé, São Paulo. Treine fala em público, voz, presença e liderança emocional com método prático na VozUP.",
+    "Escola VozUP de oratória e liderança emocional no Tatuapé, São Paulo. Treine fala em público, voz, presença e comunicação com método prático.",
   imagePath: "/og-vozup.jpg",
 };
 
 export const seoTopics = [
   "oratória",
+  "Escola VozUP",
+  "VozUP",
   "curso de oratória",
   "falar em público",
   "comunicação",
@@ -161,12 +163,12 @@ export const buildHomeStructuredData = () => {
         "@type": ["LocalBusiness", "EducationalOrganization"],
         "@id": organizationId,
         name: businessName,
-        alternateName: siteName,
+        alternateName: ["VozUP", siteName],
         url: siteUrl || canonicalUrl,
         logo: logoUrl,
         image: [imageUrl, logoUrl],
         description: homeSeo.description,
-        slogan: "Destrave sua fala em público.",
+        slogan: "Destrave sua fala em público na Escola VozUP.",
         telephone: phone ? `+${phone}` : undefined,
         priceRange: "$$",
         sameAs: getSocialProfileUrls(),
@@ -199,7 +201,7 @@ export const buildHomeStructuredData = () => {
         knowsAbout: seoTopics,
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Treinamentos VozUP",
+          name: "Treinamentos da Escola VozUP",
           itemListElement: [
             {
               "@type": "Offer",
@@ -225,7 +227,7 @@ export const buildHomeStructuredData = () => {
       {
         "@type": "Course",
         "@id": courseId,
-        name: "Curso presencial de oratória e liderança emocional",
+        name: "Curso presencial de oratória da Escola VozUP",
         description:
           "Treinamento prático para desenvolver fala em público, presença, voz, segurança e comunicação profissional em aulas presenciais no Tatuapé.",
         provider: {

@@ -54,15 +54,15 @@ const HeroSection = () => {
             </div>
 
             <h1 className="max-w-3xl text-[2.6rem] font-extrabold leading-[0.98] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-              Curso de oratória
+              Escola VozUP
               <br className="hidden sm:block" /> no Tatuapé.
               <span className="mt-1 block text-[#0d94a4]">
-                Fale melhor em público.
+                Curso de oratória presencial.
               </span>
             </h1>
 
             <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-              Escola presencial de oratória e liderança emocional no Tatuapé.
+              Escola VozUP de oratória e liderança emocional no Tatuapé.
               Nosso método foi desenhado para ser mais direto, rápido e eficaz
               que cursos tradicionais e modelos genéricos da concorrência.
             </p>
