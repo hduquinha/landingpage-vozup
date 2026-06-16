@@ -50,7 +50,9 @@ const SeoManager = () => {
 
   useEffect(() => {
     const routeSeo = getRouteSeo(location.pathname);
-    const imageUrl = absoluteUrl(routeSeo.imagePath || homeSeo.imagePath);
+    const imagePath = routeSeo.imagePath || homeSeo.imagePath;
+    const imageUrl = absoluteUrl(imagePath);
+    const isSocialPreviewImage = imagePath === homeSeo.imagePath;
     const pagePath = `${location.pathname}${location.search}`;
 
     document.title = routeSeo.title;
@@ -65,11 +67,15 @@ const SeoManager = () => {
     upsertMeta("property", "og:site_name", siteName);
     upsertMeta("property", "og:locale", "pt_BR");
     upsertMeta("property", "og:image", imageUrl);
-    upsertMeta("property", "og:image:alt", "Logo da VozUP Escola de Oratória e Liderança Emocional");
+    upsertMeta("property", "og:image:type", isSocialPreviewImage ? "image/jpeg" : "image/png");
+    upsertMeta("property", "og:image:width", isSocialPreviewImage ? "1200" : "697");
+    upsertMeta("property", "og:image:height", isSocialPreviewImage ? "630" : "281");
+    upsertMeta("property", "og:image:alt", "VozUP - Curso de oratória presencial no Tatuapé");
     upsertMeta("name", "twitter:card", "summary_large_image");
     upsertMeta("name", "twitter:title", routeSeo.title);
     upsertMeta("name", "twitter:description", routeSeo.description);
     upsertMeta("name", "twitter:image", imageUrl);
+    upsertMeta("name", "twitter:image:alt", "VozUP - Curso de oratória presencial no Tatuapé");
     upsertCanonical(routeSeo.canonical);
 
     const verification = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION?.trim();

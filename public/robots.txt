@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 # O build gera a versão final em dist/robots.txt com Sitemap quando
 # VITE_SITE_URL estiver definido no ambiente de produção.

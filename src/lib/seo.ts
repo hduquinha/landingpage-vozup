@@ -1,11 +1,32 @@
 export const siteName = "VozUP";
 
-export const homeSeo = {
-  title: "VozUP | Escola de Oratória no Tatuapé, São Paulo",
-  description:
-    "Aulas presenciais de oratória e liderança emocional no Tatuapé, São Paulo. Treine fala em público, presença, voz e comunicação para carreira e vendas.",
-  imagePath: "/vozup-logo.png",
+export const businessName = "VozUP Escola de Oratória e Liderança Emocional";
+
+export const businessAddress = {
+  streetAddress: "Rua Azevedo Soares, 1334",
+  neighborhood: "Tatuapé",
+  addressLocality: "São Paulo",
+  addressRegion: "SP",
+  addressCountry: "BR",
 };
+
+export const homeSeo = {
+  title: "Curso de Oratória no Tatuapé | VozUP São Paulo",
+  description:
+    "Curso presencial de oratória no Tatuapé, São Paulo. Treine fala em público, voz, presença e liderança emocional com método prático na VozUP.",
+  imagePath: "/og-vozup.jpg",
+};
+
+export const seoTopics = [
+  "oratória",
+  "curso de oratória",
+  "falar em público",
+  "comunicação",
+  "liderança emocional",
+  "apresentações profissionais",
+  "Tatuapé",
+  "São Paulo",
+];
 
 export const faqItems = [
   {
@@ -66,12 +87,17 @@ export const getCanonicalUrl = (pathname = "/") => {
   return absoluteUrl(cleanPath);
 };
 
+const getIndexRobots = () =>
+  import.meta.env.VITE_ROBOTS_NOINDEX === "true"
+    ? "noindex, nofollow"
+    : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+
 export const getRouteSeo = (pathname: string) => {
   if (pathname === "/") {
     return {
       ...homeSeo,
       canonical: getCanonicalUrl("/"),
-      robots: "index, follow, max-image-preview:large",
+      robots: getIndexRobots(),
     };
   }
 
@@ -108,71 +134,112 @@ const compactObject = (value: unknown): unknown => {
   return value;
 };
 
+const getSocialProfileUrls = () =>
+  [
+    import.meta.env.VITE_INSTAGRAM_URL,
+    import.meta.env.VITE_GOOGLE_BUSINESS_URL,
+    import.meta.env.VITE_LINKEDIN_URL,
+  ]
+    .map(normalizeUrl)
+    .filter(Boolean);
+
 export const buildHomeStructuredData = () => {
   const siteUrl = getSiteUrl();
-  const logoUrl = absoluteUrl(homeSeo.imagePath, siteUrl);
+  const canonicalUrl = getCanonicalUrl("/");
+  const logoUrl = absoluteUrl("/vozup-logo.png", siteUrl);
+  const imageUrl = absoluteUrl(homeSeo.imagePath, siteUrl);
   const phone = (import.meta.env.VITE_WHATSAPP_NUMBER || "5513997832766").replace(/\D/g, "");
-  const organizationId = `${siteUrl || getCanonicalUrl("/")}/#organization`;
+  const organizationId = `${canonicalUrl}#organization`;
+  const websiteId = `${canonicalUrl}#website`;
+  const webpageId = `${canonicalUrl}#webpage`;
+  const courseId = `${canonicalUrl}#curso-oratoria`;
 
   return compactObject({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "LocalBusiness",
+        "@type": ["LocalBusiness", "EducationalOrganization"],
         "@id": organizationId,
-        name: "VozUP Escola de Oratória e Liderança Emocional",
-        alternateName: "VozUP",
-        url: siteUrl || undefined,
+        name: businessName,
+        alternateName: siteName,
+        url: siteUrl || canonicalUrl,
         logo: logoUrl,
-        image: logoUrl,
+        image: [imageUrl, logoUrl],
         description: homeSeo.description,
+        slogan: "Destrave sua fala em público.",
         telephone: phone ? `+${phone}` : undefined,
         priceRange: "$$",
+        sameAs: getSocialProfileUrls(),
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Rua Azevedo Soares, 1334",
-          addressLocality: "São Paulo",
-          addressRegion: "SP",
-          postalCode: "",
-          addressCountry: "BR",
+          streetAddress: businessAddress.streetAddress,
+          addressLocality: businessAddress.addressLocality,
+          addressRegion: businessAddress.addressRegion,
+          addressCountry: businessAddress.addressCountry,
         },
+        hasMap:
+          "https://www.google.com/maps?q=Rua%20Azevedo%20Soares%2C%201334%20-%20Tatuap%C3%A9%2C%20S%C3%A3o%20Paulo%20-%20SP",
         areaServed: [
-          {
-            "@type": "City",
-            name: "São Paulo",
-          },
           {
             "@type": "Place",
             name: "Tatuapé",
           },
-        ],
-        additionalType: "https://schema.org/EducationalOrganization",
-        makesOffer: [
           {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Aula experimental de oratória",
-              serviceType: "Curso presencial de oratória e comunicação",
-              areaServed: "Tatuapé, São Paulo",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Treinamento de liderança emocional",
-              serviceType: "Treinamento presencial de comunicação para liderança",
-              areaServed: "Tatuapé, São Paulo",
-            },
+            "@type": "City",
+            name: "São Paulo",
           },
         ],
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: phone ? `+${phone}` : undefined,
+          contactType: "customer service",
+          areaServed: "BR",
+          availableLanguage: ["pt-BR"],
+        },
+        knowsAbout: seoTopics,
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Treinamentos VozUP",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Aula experimental de oratória",
+                serviceType: "Aula presencial de oratória",
+                areaServed: "Tatuapé, São Paulo",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Treinamento de liderança emocional",
+                serviceType: "Treinamento presencial de comunicação para liderança",
+                areaServed: "Tatuapé, São Paulo",
+              },
+            },
+          ],
+        },
+      },
+      {
+        "@type": "Course",
+        "@id": courseId,
+        name: "Curso presencial de oratória e liderança emocional",
+        description:
+          "Treinamento prático para desenvolver fala em público, presença, voz, segurança e comunicação profissional em aulas presenciais no Tatuapé.",
+        provider: {
+          "@id": organizationId,
+        },
+        courseMode: "Presencial",
+        inLanguage: "pt-BR",
+        url: canonicalUrl,
       },
       {
         "@type": "WebSite",
-        "@id": `${siteUrl || getCanonicalUrl("/")}/#website`,
+        "@id": websiteId,
         name: siteName,
-        url: siteUrl || undefined,
+        url: siteUrl || canonicalUrl,
         publisher: {
           "@id": organizationId,
         },
@@ -180,21 +247,37 @@ export const buildHomeStructuredData = () => {
       },
       {
         "@type": "WebPage",
-        "@id": `${getCanonicalUrl("/")}/#webpage`,
-        url: getCanonicalUrl("/"),
+        "@id": webpageId,
+        url: canonicalUrl,
         name: homeSeo.title,
         description: homeSeo.description,
         isPartOf: {
-          "@id": `${siteUrl || getCanonicalUrl("/")}/#website`,
+          "@id": websiteId,
         },
         about: {
           "@id": organizationId,
         },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: imageUrl,
+        },
         inLanguage: "pt-BR",
       },
       {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: siteName,
+            item: canonicalUrl,
+          },
+        ],
+      },
+      {
         "@type": "FAQPage",
-        "@id": `${getCanonicalUrl("/")}/#faq`,
+        "@id": `${canonicalUrl}#faq`,
         mainEntity: faqItems.map((item) => ({
           "@type": "Question",
           name: item.question,
