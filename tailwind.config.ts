@@ -19,7 +19,19 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				display: ['Poppins', 'system-ui', 'sans-serif'],
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+			},
+			boxShadow: {
+				soft: '0 10px 40px -12px rgba(15, 23, 42, 0.12)',
+				card: '0 4px 24px -8px rgba(15, 23, 42, 0.10)',
+				lift: '0 24px 60px -20px rgba(8, 47, 51, 0.28)',
+			},
 			colors: {
+				cream: 'hsl(var(--cream))',
+				'cream-deep': 'hsl(var(--cream-deep))',
+				ink: 'hsl(var(--ink))',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

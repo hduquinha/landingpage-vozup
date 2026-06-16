@@ -1,4 +1,5 @@
 import { AlertCircle, BrainCircuit, MessageSquareWarning, Users } from "lucide-react";
+import { SectionLabel } from "@/components/editorial";
 
 const ProblemsSection = () => {
   const problems = [
@@ -25,29 +26,34 @@ const ProblemsSection = () => {
   ];
 
   return (
-    <section className="bg-[#F7FCFD] px-4 py-16 text-black sm:px-6 lg:py-20">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-10 grid gap-6 lg:grid-cols-[0.9fr,1.1fr] lg:items-end">
+    <section className="relative overflow-hidden bg-cream-deep px-4 py-20 text-ink sm:px-6 lg:py-28">
+      <div className="absolute inset-0 bg-grid opacity-60" />
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="mb-12 grid gap-6 lg:grid-cols-[0.9fr,1.1fr] lg:items-end">
           <div>
-            <p className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-[#008C99]">
-              O problema não é falta de capacidade
-            </p>
-            <h2 className="text-3xl font-black leading-none sm:text-5xl">
-              É falta de treino certo, no ambiente certo.
+            <SectionLabel className="mb-5">O problema não é falta de capacidade</SectionLabel>
+            <h2 className="text-3xl font-extrabold leading-[1.02] sm:text-5xl">
+              É falta de treino certo,
+              <span className="block text-[#0d94a4]">no ambiente certo.</span>
             </h2>
           </div>
-          <p className="border-l border-gray-300 pl-5 text-lg leading-relaxed text-gray-700">
+          <p className="rounded-2xl border-l-4 border-[#00AFC1] bg-white/70 p-6 text-lg leading-relaxed text-slate-600 shadow-card">
             A VozUP trabalha a fala como habilidade prática: você aprende,
             aplica, recebe feedback e repete até ganhar segurança real.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {problems.map((item) => (
-            <div key={item.title} className="bg-white p-5 shadow-sm ring-1 ring-black/5">
-              <item.icon className="mb-4 h-8 w-8 text-[#008C99]" />
-              <h3 className="text-xl font-black leading-tight">{item.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">{item.text}</p>
+            <div
+              key={item.title}
+              className="group rounded-2xl border border-ink/5 bg-white p-6 shadow-card transition hover:-translate-y-1 hover:shadow-soft"
+            >
+              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#EAFBFC] text-[#0d94a4] transition group-hover:bg-[#00AFC1] group-hover:text-white">
+                <item.icon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-extrabold leading-tight">{item.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-500">{item.text}</p>
             </div>
           ))}
         </div>

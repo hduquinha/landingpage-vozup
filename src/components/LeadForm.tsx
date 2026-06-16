@@ -38,12 +38,13 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-5 text-black shadow-2xl ring-1 ring-black/10 sm:p-7">
-      <div className="mb-5 border-b border-gray-200 pb-5">
-        <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">
+    <form onSubmit={handleSubmit} className="rounded-3xl bg-white p-5 text-ink shadow-lift ring-1 ring-ink/5 sm:p-7">
+      <div className="mb-5 border-b border-gray-100 pb-5">
+        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0d94a4]">
+          <span className="h-px w-6 bg-[#0d94a4]" />
           Aula experimental
         </p>
-        <h3 className={`${compact ? "text-2xl" : "text-3xl"} mt-2 font-black leading-none`}>
+        <h3 className={`${compact ? "text-2xl" : "text-3xl"} mt-3 font-display font-extrabold leading-tight`}>
           Receba o contato da VozUP
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-gray-600">
@@ -59,7 +60,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
             onChange={(event) => setName(event.target.value)}
             required
             placeholder="Digite seu nome"
-            className="h-12 w-full border border-gray-300 bg-white px-4 text-base outline-none transition focus:border-cyan-500"
+            className="h-12 w-full rounded-xl border border-gray-200 bg-cream/50 px-4 text-base outline-none transition focus:border-[#00AFC1] focus:bg-white focus:ring-2 focus:ring-[#00AFC1]/20"
           />
         </label>
 
@@ -71,7 +72,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
             required
             inputMode="tel"
             placeholder="(11) 99999-9999"
-            className="h-12 w-full border border-gray-300 bg-white px-4 text-base outline-none transition focus:border-cyan-500"
+            className="h-12 w-full rounded-xl border border-gray-200 bg-cream/50 px-4 text-base outline-none transition focus:border-[#00AFC1] focus:bg-white focus:ring-2 focus:ring-[#00AFC1]/20"
           />
         </label>
 
@@ -80,7 +81,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
           <select
             value={goal}
             onChange={(event) => setGoal(event.target.value)}
-            className="h-12 w-full border border-gray-300 bg-white px-4 text-base outline-none transition focus:border-cyan-500"
+            className="h-12 w-full rounded-xl border border-gray-200 bg-cream/50 px-4 text-base outline-none transition focus:border-[#00AFC1] focus:bg-white focus:ring-2 focus:ring-[#00AFC1]/20"
           >
             {goals.map((item) => (
               <option key={item} value={item}>
@@ -94,7 +95,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
       <button
         type="submit"
         disabled={status === "sending"}
-        className="mt-5 flex min-h-14 w-full items-center justify-center gap-2 bg-[#00AFC1] px-4 py-4 text-center text-sm font-black uppercase leading-tight text-white transition hover:bg-[#111827] hover:text-white disabled:cursor-wait disabled:opacity-70 sm:gap-3 sm:text-base"
+        className="mt-6 flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#00AFC1] px-4 py-4 text-center text-sm font-bold leading-tight text-white shadow-lift transition hover:bg-ink hover:text-white disabled:cursor-wait disabled:opacity-70 sm:gap-3 sm:text-base"
       >
         <MessageCircle className="h-5 w-5 flex-shrink-0" />
         <span>{status === "sending" ? "Enviando..." : "Quero minha aula experimental"}</span>
@@ -102,13 +103,13 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
       </button>
 
       {status === "saved" && (
-        <div className="mt-4 bg-[#EAFBFC] p-3 text-sm font-semibold text-[#065A63]">
+        <div className="mt-4 rounded-xl bg-[#EAFBFC] p-3 text-sm font-semibold text-[#065A63]">
           Cadastro recebido. Nossa equipe vai entrar em contato.
         </div>
       )}
 
       {status === "error" && (
-        <div className="mt-4 bg-red-50 p-3 text-sm font-semibold text-red-700">
+        <div className="mt-4 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-700">
           Não conseguimos salvar agora. Confira se a API está ativa ou fale pelo WhatsApp abaixo.
         </div>
       )}
@@ -118,7 +119,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => trackWhatsAppClick(`${source} - link alternativo`)}
-        className="mt-3 flex min-h-12 w-full items-center justify-center border border-gray-300 px-4 py-3 text-center text-sm font-black uppercase text-[#111827] transition hover:border-[#00AFC1] hover:text-[#008C99]"
+        className="mt-3 flex min-h-12 w-full items-center justify-center rounded-full border border-gray-200 px-4 py-3 text-center text-sm font-bold text-ink transition hover:border-[#00AFC1] hover:text-[#0d94a4]"
       >
         Chamar no WhatsApp
       </a>

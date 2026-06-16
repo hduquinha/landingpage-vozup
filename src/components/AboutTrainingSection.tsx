@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { openWhatsApp } from "@/lib/lead";
+import { SectionLabel } from "@/components/editorial";
 
 const AboutTrainingSection = () => {
   const results = [
@@ -10,22 +11,20 @@ const AboutTrainingSection = () => {
   ];
 
   return (
-    <section id="lead" className="relative overflow-hidden bg-white px-4 py-16 text-black sm:px-6 lg:py-24">
-      <div className="absolute left-0 top-0 hidden h-full w-2 bg-[#00AFC1] sm:block" />
-      <div className="mx-auto max-w-6xl">
+    <section id="lead" className="relative overflow-hidden bg-cream px-4 py-20 text-ink sm:px-6 lg:py-28">
+      <span className="watermark pointer-events-none absolute -right-6 top-6 text-[14rem] sm:text-[20rem]">01</span>
+      <div className="relative z-10 mx-auto max-w-6xl">
         <div className="grid gap-8 lg:grid-cols-[0.9fr,1.1fr] lg:items-end">
           <div>
-            <p className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-cyan-700">
-              Comunicação é treino
-            </p>
-            <h2 className="text-3xl font-black leading-none sm:text-5xl lg:text-6xl">
+            <SectionLabel className="mb-5">Comunicação é treino</SectionLabel>
+            <h2 className="text-4xl font-extrabold leading-[0.98] sm:text-5xl lg:text-6xl">
               Não é dom.
-              <span className="block text-[#008C99]">É método.</span>
+              <span className="block text-[#0d94a4]">É método.</span>
             </h2>
           </div>
 
-          <div className="border-l border-gray-300 pl-5">
-            <p className="text-lg leading-relaxed text-gray-700 sm:text-xl">
+          <div className="rounded-2xl border-l-4 border-[#00AFC1] bg-white/70 p-6 shadow-card">
+            <p className="text-lg leading-relaxed text-slate-600 sm:text-xl">
               A VozUP tira a oratória do campo da teoria. O aluno fala, recebe
               direção, ajusta e repete até construir uma comunicação mais
               natural, segura e influente.
@@ -33,35 +32,38 @@ const AboutTrainingSection = () => {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1fr,0.72fr]">
-          <div className="space-y-1">
+        <div className="mt-14 grid gap-8 lg:grid-cols-[1fr,0.72fr]">
+          <div className="rounded-3xl border border-ink/5 bg-white p-2 shadow-card sm:p-4">
             {results.map((item, index) => (
               <div
                 key={item}
-                className="flex items-start gap-4 border-b border-gray-200 py-5 transition hover:border-cyan-400"
+                className="flex items-start gap-4 rounded-2xl px-4 py-5 transition hover:bg-cream"
               >
-                <span className="mt-1 font-mono text-sm font-bold text-cyan-600">0{index + 1}</span>
-                  <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#008C99]" />
+                <span className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-ink text-sm font-bold text-white">
+                  0{index + 1}
+                </span>
+                <CheckCircle2 className="mt-1 h-6 w-6 flex-shrink-0 text-[#0d94a4]" />
                 <p className="text-lg font-bold leading-snug sm:text-xl">{item}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-[#111827] p-6 text-white sm:p-7">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#7BE7EF]">
-              Para quem é
-            </p>
-            <p className="mt-5 text-2xl font-black leading-tight sm:text-3xl">
-              Profissionais, líderes, vendedores, empreendedores e pessoas que
-              cansaram de falar menos do que sabem.
-            </p>
-            <button
-              onClick={() => openWhatsApp("seção de benefícios")}
-              className="mt-8 inline-flex w-full items-center justify-center gap-2 bg-[#00AFC1] px-5 py-4 text-center font-black text-white transition hover:bg-white hover:text-black sm:w-auto"
-            >
-              Quero destravar minha comunicação
-              <ArrowRight className="h-5 w-5" />
-            </button>
+          <div className="relative overflow-hidden rounded-3xl bg-ink p-7 text-white shadow-lift sm:p-8">
+            <div className="absolute inset-0 bg-grid-ink opacity-60" />
+            <div className="relative z-10">
+              <SectionLabel tone="light" className="mb-5">Para quem é</SectionLabel>
+              <p className="text-2xl font-extrabold leading-tight sm:text-3xl">
+                Profissionais, líderes, vendedores, empreendedores e pessoas que
+                cansaram de falar menos do que sabem.
+              </p>
+              <button
+                onClick={() => openWhatsApp("seção de benefícios")}
+                className="mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#00AFC1] px-6 py-4 text-center font-bold text-white transition hover:bg-white hover:text-ink sm:w-auto"
+              >
+                Quero destravar minha comunicação
+                <ArrowRight className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

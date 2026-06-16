@@ -130,11 +130,15 @@ body {
 
   @layer base {
     :root {
-      --background: 0 0% 100%;
-      --foreground: 0 0% 0%;
+      --background: 40 30% 97%;
+      --foreground: 222 30% 11%;
 
-      --card: 0 0% 98%;
-      --card-foreground: 0 0% 0%;
+      --cream: 40 30% 97%;
+      --cream-deep: 38 26% 93%;
+      --ink: 222 33% 11%;
+
+      --card: 0 0% 100%;
+      --card-foreground: 222 30% 11%;
 
       --popover: 0 0% 100%;
       --popover-foreground: 0 0% 0%;
@@ -165,7 +169,7 @@ body {
       --text-light: 0 0% 95%;
       --text-muted: 0 0% 70%;
 
-      --radius: 0.5rem;
+      --radius: 1rem;
 
       --sidebar-background: 0 0% 98%;
 
@@ -229,8 +233,67 @@ body {
     }
 
     body {
-      @apply bg-background text-foreground;
+      @apply bg-background text-foreground font-sans antialiased;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
+
+    h1, h2, h3, h4, h5 {
+      @apply font-display;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  /* ========================================================================== */
+  /* Sistema visual editorial (inspirado na apostila VozUP)                     */
+  /* ========================================================================== */
+  @layer utilities {
+    /* Textura de grade sutil de fundo */
+    .bg-grid {
+      background-image:
+        linear-gradient(to right, rgba(13, 148, 164, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(13, 148, 164, 0.06) 1px, transparent 1px);
+      background-size: 38px 38px;
+    }
+    .bg-grid-ink {
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    /* Círculos concêntricos decorativos */
+    .deco-rings::before,
+    .deco-rings::after {
+      content: "";
+      position: absolute;
+      border-radius: 9999px;
+      border: 1px solid rgba(13, 148, 164, 0.18);
+      pointer-events: none;
+    }
+    .deco-rings::before { width: 460px; height: 460px; }
+    .deco-rings::after { width: 680px; height: 680px; }
+
+    /* Tratamento duotone teal para imagens (estilo apostila) */
+    .duotone {
+      filter: grayscale(1) contrast(1.05);
+      background: #0c2b30;
+    }
+    .duotone img {
+      mix-blend-mode: luminosity;
+      opacity: 0.92;
+    }
+
+    /* Marca d'água numérica gigante */
+    .watermark {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(13, 148, 164, 0.06);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .shadow-soft { box-shadow: 0 10px 40px -12px rgba(15, 23, 42, 0.12); }
   }
 
   /* ========================================================================== */
