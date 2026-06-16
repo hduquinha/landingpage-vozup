@@ -18,7 +18,15 @@ const WhatsAppButton = () => {
         className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] shadow-2xl transition-transform duration-300 hover:scale-110 hover:bg-[#128C7E] animate-pulse-whatsapp"
         aria-label="Fale com a VozUP pelo WhatsApp"
       >
-        <img src={whatsappLogo} alt="WhatsApp" className="h-full w-full rounded-full object-contain" />
+        <img
+          src={whatsappLogo}
+          alt="WhatsApp"
+          width={2048}
+          height={2048}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full rounded-full object-contain"
+        />
       </a>
     </div>
   );

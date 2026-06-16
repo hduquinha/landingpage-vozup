@@ -22,6 +22,10 @@ const TrainersSection = () => {
               <img
                 src={speakerCoach}
                 alt="Treinador de oratória da VozUP"
+                width={760}
+                height={1140}
+                loading="lazy"
+                decoding="async"
                 className="mx-auto h-auto w-full max-w-md object-contain drop-shadow-2xl"
               />
             </div>
@@ -29,7 +33,15 @@ const TrainersSection = () => {
 
           <div>
             <div className="mb-8 inline-flex rounded-2xl bg-ink p-4">
-              <img src={vozupLogo} alt="VozUP" className="h-auto w-full max-w-[220px]" />
+              <img
+                src={vozupLogo}
+                alt="VozUP"
+                width={500}
+                height={500}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-full max-w-[220px]"
+              />
             </div>
             <SectionLabel className="mb-5">Escola de oratória e liderança emocional</SectionLabel>
             <h2 className="text-3xl font-extrabold leading-[1.0] sm:text-5xl">

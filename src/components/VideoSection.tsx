@@ -47,6 +47,10 @@ const VideoSection = () => {
             <img
               src={speakerCoach}
               alt="Treinador de oratória orientando aluno"
+              width={760}
+              height={1140}
+              loading="lazy"
+              decoding="async"
               className="mx-auto mb-4 max-h-[360px] w-auto object-contain drop-shadow-xl lg:absolute lg:-left-24 lg:bottom-0 lg:mb-0 lg:max-h-[520px]"
             />
             <div className="lg:ml-56">

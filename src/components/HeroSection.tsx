@@ -29,7 +29,14 @@ const HeroSection = () => {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <header className="mb-10 flex items-center justify-between gap-4 sm:mb-14">
-          <img src={vozupLogo} alt="VozUP" className="h-11 w-auto sm:h-14" />
+          <img
+            src={vozupLogo}
+            alt="VozUP Escola de Oratória e Liderança Emocional"
+            width={697}
+            height={281}
+            decoding="async"
+            className="h-11 w-auto sm:h-14"
+          />
           <button
             onClick={() => openWhatsApp("botão do topo")}
             className="hidden items-center gap-2 rounded-full border border-ink/15 bg-white/70 px-5 py-2.5 text-sm font-bold text-ink shadow-sm backdrop-blur transition hover:bg-ink hover:text-white sm:flex"
@@ -47,10 +54,10 @@ const HeroSection = () => {
             </div>
 
             <h1 className="max-w-3xl text-[2.6rem] font-extrabold leading-[0.98] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-              Destrave sua fala
-              <br className="hidden sm:block" /> em público.
+              Curso de oratória
+              <br className="hidden sm:block" /> no Tatuapé.
               <span className="mt-1 block text-[#0d94a4]">
-                Mais rápido. Mais prático.
+                Fale melhor em público.
               </span>
             </h1>
 
@@ -99,6 +106,11 @@ const HeroSection = () => {
               <img
                 src={speakerWoman}
                 alt="Profissional treinando oratória com microfone"
+                width={760}
+                height={1142}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="max-h-[360px] w-auto object-contain"
               />
             </div>
@@ -106,6 +118,11 @@ const HeroSection = () => {
             <img
               src={speakerWoman}
               alt="Profissional treinando oratória com microfone"
+              width={760}
+              height={1142}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="pointer-events-none absolute bottom-[-96px] right-[-130px] hidden max-h-[560px] w-auto object-contain drop-shadow-2xl xl:block"
             />
           </div>

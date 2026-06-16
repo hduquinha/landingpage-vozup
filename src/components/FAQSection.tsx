@@ -28,6 +28,7 @@ const FAQSection = () => {
         <div className="space-y-4">
           {faqItems.map((faq, index) => {
             const isOpen = openItems.includes(index);
+            const answerId = `faq-answer-${index}`;
             return (
               <div
                 key={faq.question}
@@ -35,6 +36,8 @@ const FAQSection = () => {
               >
                 <button
                   onClick={() => toggleItem(index)}
+                  aria-expanded={isOpen}
+                  aria-controls={answerId}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-cream"
                 >
                   <h3 className="text-lg font-bold">{faq.question}</h3>
@@ -46,11 +49,9 @@ const FAQSection = () => {
                     <ChevronDown className={`h-5 w-5 transition-transform ${isOpen ? "rotate-180" : ""}`} />
                   </span>
                 </button>
-                {isOpen && (
-                  <div className="border-t border-gray-100 px-6 py-5">
-                    <p className="leading-relaxed text-slate-600">{faq.answer}</p>
-                  </div>
-                )}
+                <div id={answerId} hidden={!isOpen} className="border-t border-gray-100 px-6 py-5">
+                  <p className="leading-relaxed text-slate-600">{faq.answer}</p>
+                </div>
               </div>
             );
           })}

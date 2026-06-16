@@ -114,7 +114,7 @@ export const MediaCard = ({
       className,
     )}
   >
-    <img src={src} alt={alt} className="h-full w-full object-cover" />
+    <img src={src} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-cover" />
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#062023]/70 via-transparent to-transparent" />
     {caption && (
       <figcaption className="absolute bottom-4 left-4 z-10 text-sm font-bold text-white drop-shadow">

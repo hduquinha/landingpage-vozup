@@ -12,7 +12,15 @@ const FinalCtaSection = () => {
 
       <div className="relative z-10 mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr,0.62fr] lg:items-end">
         <div>
-          <img src={vozupLogo} alt="VozUP" className="mb-10 h-auto w-full max-w-[260px]" />
+          <img
+            src={vozupLogo}
+            alt="VozUP"
+            width={500}
+            height={500}
+            loading="lazy"
+            decoding="async"
+            className="mb-10 h-auto w-full max-w-[260px]"
+          />
           <h2 className="text-4xl font-extrabold leading-[1.0] sm:text-5xl lg:text-6xl">
             Sua voz pode abrir portas.
             <span className="block text-[#7BE7EF]">Treine ela do jeito certo.</span>
@@ -40,6 +48,10 @@ const FinalCtaSection = () => {
         <img
           src={speakerWoman}
           alt="Profissional falando com segurança"
+          width={760}
+          height={1142}
+          loading="lazy"
+          decoding="async"
           className="hidden max-h-[520px] w-auto object-contain drop-shadow-2xl lg:block"
         />
 
