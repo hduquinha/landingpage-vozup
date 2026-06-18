@@ -148,7 +148,7 @@ export const buildHomeStructuredData = () => {
   const canonicalUrl = getCanonicalUrl("/");
   const logoUrl = absoluteUrl("/vozup-logo.png", siteUrl);
   const imageUrl = absoluteUrl(homeSeo.imagePath, siteUrl);
-  const phone = (import.meta.env.VITE_WHATSAPP_NUMBER || "5513997832766").replace(/\D/g, "");
+  const phone = (import.meta.env.VITE_WHATSAPP_NUMBER || "5511988874277").replace(/\D/g, "");
   const organizationId = `${canonicalUrl}#organization`;
   const websiteId = `${canonicalUrl}#website`;
   const webpageId = `${canonicalUrl}#webpage`;

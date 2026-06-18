@@ -458,15 +458,8 @@ app.post('/api/lead-vozup', async (req, res) => {
   }
 
   const notifyNumber = normalizeWhatsAppNumber(
-    getEnv('UAZAPI_NOTIFY_NUMBER') || getEnv('VITE_WHATSAPP_NUMBER') || getEnv('WHATSAPP_NUMBER')
+    getEnv('UAZAPI_NOTIFY_NUMBER') || getEnv('VITE_WHATSAPP_NUMBER') || getEnv('WHATSAPP_NUMBER') || '11988874277'
   );
-
-  if (!notifyNumber) {
-    return res.status(500).json({
-      error: 'Numero de destino nao configurado',
-      details: 'Defina UAZAPI_NOTIFY_NUMBER com o WhatsApp que recebera os leads.',
-    });
-  }
 
   const leadPayload = {
     _final: true,
@@ -474,6 +467,7 @@ app.post('/api/lead-vozup', async (req, res) => {
     nome,
     telefone,
     objetivo,
+    unidade_negocio: 'Voz UP',
     treinamento_nome: 'VozUP Aula Experimental',
     data_treinamento: 'vozup-aula-experimental',
     origem: 'Landing Page VozUP',

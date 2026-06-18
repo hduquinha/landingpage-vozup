@@ -1,7 +1,7 @@
 import { trackWhatsAppClick } from "@/lib/analytics";
 
 export const whatsappNumber = (
-  import.meta.env.VITE_WHATSAPP_NUMBER || "5513997832766"
+  import.meta.env.VITE_WHATSAPP_NUMBER || "5511988874277"
 ).replace(/\D/g, "");
 
 export type LeadData = {
