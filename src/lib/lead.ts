@@ -35,15 +35,17 @@ export const buildLeadWhatsAppLink = (lead: LeadData, source = "formulário da l
 };
 
 export const submitLead = async (lead: Required<Pick<LeadData, "name" | "phone" | "goal">> & { source?: string }) => {
-  const response = await fetch("/api/lead-vozup", {
+  const response = await fetch("https://dashboard.escolavozup.com/api/vozup/lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       nome: lead.name,
       telefone: lead.phone,
       objetivo: lead.goal,
+      unidade_negocio: "Voz UP",
       origem: "Landing Page VozUP",
       source: lead.source || "formulário da landing",
+      _final: true,
     }),
   });
 
