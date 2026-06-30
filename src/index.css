@@ -7,24 +7,13 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Melhoria nas transições globais */
-* {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Animações mais suaves para hover e transform */
-@layer base {
-  * {
-    transition-duration: 300ms;
-  }
-  
-  /* Transições mais longas para elementos específicos */
+/* Utilitários de duração de transição customizados */
+@layer utilities {
   .transition-500 {
-    transition-duration: 500ms !important;
+    transition-duration: 500ms;
   }
-  
   .transition-700 {
-    transition-duration: 700ms !important;
+    transition-duration: 700ms;
   }
 }
 
