@@ -1,6 +1,6 @@
 import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
-import vozupLogo from "@/assets/vozup-logo-light.png";
-import speakerWoman from "@/assets/speaker-woman-commercial.png";
+import vozupLogo from "@/assets/vozup-logo-light.webp";
+import speakerWoman from "@/assets/speaker-woman-commercial.webp";
 import { openWhatsApp } from "@/lib/lead";
 
 const FinalCtaSection = () => {

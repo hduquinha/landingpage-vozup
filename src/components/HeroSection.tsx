@@ -8,8 +8,8 @@ import {
   Timer,
   Users,
 } from "lucide-react";
-import vozupLogo from "@/assets/vozup-logo-dark.png";
-import speakerWoman from "@/assets/speaker-woman-commercial.png";
+import vozupLogo from "@/assets/vozup-logo-dark.webp";
+import speakerWoman from "@/assets/speaker-woman-commercial.webp";
 import { openWhatsApp, scrollToLead } from "@/lib/lead";
 import LeadForm from "@/components/LeadForm";
 
@@ -102,29 +102,9 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            <div className="mt-10 flex items-end justify-center rounded-3xl bg-[#EAFBFC] pt-4 md:hidden">
-              <img
-                src={speakerWoman}
-                alt="Profissional treinando oratória com microfone"
-                width={760}
-                height={1142}
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="max-h-[360px] w-auto object-contain"
-              />
-            </div>
+            
 
-            <img
-              src={speakerWoman}
-              alt="Profissional treinando oratória com microfone"
-              width={760}
-              height={1142}
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              className="pointer-events-none absolute bottom-[-96px] right-[-130px] hidden max-h-[560px] w-auto object-contain drop-shadow-2xl xl:block"
-            />
+           
           </div>
 
           <div id="hero-form" className="relative">

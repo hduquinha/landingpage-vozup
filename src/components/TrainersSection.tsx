@@ -1,6 +1,6 @@
 import { Award, ClipboardCheck, MapPinned, UsersRound } from "lucide-react";
-import vozupLogo from "@/assets/vozup-logo-light.png";
-import speakerCoach from "@/assets/speaker-coach-commercial.png";
+import vozupLogo from "@/assets/vozup-logo-light.webp";
+import speakerCoach from "@/assets/speaker-coach-commercial.webp";
 import { SectionLabel } from "@/components/editorial";
 
 const TrainersSection = () => {
