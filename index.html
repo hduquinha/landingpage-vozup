@@ -3,16 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/webp" href="/vozup-logo.webp" />
     <link rel="icon" type="image/png" href="/vozup-logo.png" />
     <link rel="apple-touch-icon" href="/vozup-logo.png" />
-    <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+
+    <!-- DNS prefetch + preconnect para terceiros -->
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts — carregamento não bloqueante -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+      as="style"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
     <meta name="theme-color" content="#00AFC1" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="facebook-domain-verification" content="cqukexdddsj2xoq5na8qxoa5wvfngm" />
@@ -48,18 +67,24 @@
     <meta name="twitter:image" content="/og-vozup.jpg" />
     <meta name="twitter:image:alt" content="VozUP - Curso de oratória presencial no Tatuapé" />
 
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel — stub imediato, SDK carregado após page load para não bloquear FCP/LCP -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      n.queue=[];}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '1321351659702121');
       fbq('track', 'PageView');
+    </script>
+    <script>
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(s);
+      }, { once: true });
     </script>
     <!-- End Meta Pixel Code -->
   </head>
