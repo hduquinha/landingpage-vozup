@@ -114,15 +114,7 @@ const LeadForm = ({ source = "formulário principal", compact = false }: LeadFor
         </div>
       )}
 
-      <a
-        href={whatsappLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackWhatsAppClick(`${source} - link alternativo`)}
-        className="mt-3 flex min-h-12 w-full items-center justify-center rounded-full border border-gray-200 px-4 py-3 text-center text-sm font-bold text-ink transition hover:border-[#00AFC1] hover:text-[#0d94a4]"
-      >
-        Chamar no WhatsApp
-      </a>
+
 
       <div className="mt-4 flex gap-2 text-xs font-semibold leading-relaxed text-gray-500">
         <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#008C99]" />
