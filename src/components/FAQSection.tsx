@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
-import { faqItems } from "@/lib/seo";
 import { SectionLabel } from "@/components/editorial";
+import { useLandingPage } from "@/context/LandingPageContext";
 
 const FAQSection = () => {
+  const { content } = useLandingPage();
+  const faqItems = content.faq;
   const [openItems, setOpenItems] = useState<number[]>([0]);
 
   const toggleItem = (index: number) => {
@@ -13,7 +15,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="bg-cream-deep px-4 py-20 text-ink sm:px-6 lg:py-28">
+    <section id="faq" className="bg-cream-deep px-4 py-20 text-ink sm:px-6 lg:py-28">
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EAFBFC] text-[#0d94a4]">
@@ -21,7 +23,7 @@ const FAQSection = () => {
           </span>
           <SectionLabel className="mb-4 justify-center">Tire suas dúvidas</SectionLabel>
           <h2 className="text-3xl font-extrabold sm:text-5xl">
-            Perguntas frequentes
+            Perguntas Frequentes
           </h2>
         </div>
 

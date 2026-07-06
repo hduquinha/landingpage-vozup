@@ -289,8 +289,12 @@ const seoAndMarketingPlugin = (mode: string): PluginOption => {
       if (isValidGtmId(gtmId)) {
         tags.push(
           {
+            // GTM real só carrega na primeira interação do usuário (ou após
+            // o load + fallback de 3.5s), para não competir com o JS crítico
+            // no carregamento inicial. window.dataLayer.push continua
+            // funcionando normalmente antes disso (fila nativa do GTM).
             tag: "script",
-            children: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(gtmId)});`,
+            children: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var loaded=false;function load(){if(loaded)return;loaded=true;var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}['scroll','mousemove','touchstart','keydown','click'].forEach(function(evt){w.addEventListener(evt,load,{passive:true,once:true});});if(d.readyState==='complete'){setTimeout(load,3500);}else{w.addEventListener('load',function(){setTimeout(load,3500);});}})(window,document,'script','dataLayer',${JSON.stringify(gtmId)});`,
             injectTo: "head-prepend",
           },
           {
@@ -300,18 +304,12 @@ const seoAndMarketingPlugin = (mode: string): PluginOption => {
           },
         );
       } else if (isValidGaMeasurementId(gaMeasurementId)) {
-        tags.push(
-          {
-            tag: "script",
-            attrs: { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}` },
-            injectTo: "head-prepend",
-          },
-          {
-            tag: "script",
-            children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(gaMeasurementId)},{send_page_view:false});`,
-            injectTo: "head-prepend",
-          },
-        );
+        tags.push({
+          // mesma estratégia de carregamento adiado aplicada ao gtag.js
+          tag: "script",
+          children: `(function(w,d,id){w.dataLayer=w.dataLayer||[];function gtag(){w.dataLayer.push(arguments);}w.gtag=gtag;gtag('js',new Date());gtag('config',id,{send_page_view:false});var loaded=false;function load(){if(loaded)return;loaded=true;var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtag/js?id='+id;d.head.appendChild(j);}['scroll','mousemove','touchstart','keydown','click'].forEach(function(evt){w.addEventListener(evt,load,{passive:true,once:true});});if(d.readyState==='complete'){setTimeout(load,3500);}else{w.addEventListener('load',function(){setTimeout(load,3500);});}})(window,document,${JSON.stringify(gaMeasurementId)});`,
+          injectTo: "head-prepend",
+        });
       }
 
       return { html: updatedHtml, tags };
@@ -344,6 +342,9 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    // Navegadores de 2020+ (>99% do tráfego real) já suportam isso nativamente;
+    // evita transpilar/polyfillar recursos que o próprio navegador já entende.
+    target: "es2020",
     rollupOptions: {
       output: {
         manualChunks(id) {

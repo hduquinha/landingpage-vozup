@@ -2,107 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   Fontes auto-hospedadas (Inter + Poppins, apenas subconjunto latin)
+   Substitui o carregamento via fonts.googleapis.com/fonts.gstatic.com:
+   elimina 2 origens externas e o round-trip extra de buscar o CSS antes
+   de descobrir a URL real dos arquivos. Pesos limitados aos realmente
+   usados no projeto (auditado via grep em todo o src/).
+   ========================================================================== */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/inter-variable-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/inter-variable-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/inter-variable-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/poppins-600-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/poppins-700-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/poppins-800-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/poppins-900-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Configuração global para scroll suave */
 html {
   scroll-behavior: smooth;
-}
-
-/* Utilitários de duração de transição customizados */
-@layer utilities {
-  .transition-500 {
-    transition-duration: 500ms;
-  }
-  .transition-700 {
-    transition-duration: 700ms;
-  }
 }
 
 /* Melhoria no scroll em dispositivos mobile */
 body {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-}
-
-/* Responsividade aprimorada */
-@layer utilities {
-  .container-responsive {
-    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-  
-  /* Texto responsivo otimizado */
-  .text-responsive-xs {
-    @apply text-sm sm:text-base;
-  }
-  
-  .text-responsive-sm {
-    @apply text-base sm:text-lg lg:text-xl;
-  }
-  
-  .text-responsive-md {
-    @apply text-lg sm:text-xl lg:text-2xl;
-  }
-  
-  .text-responsive-lg {
-    @apply text-xl sm:text-2xl lg:text-3xl xl:text-4xl;
-  }
-  
-  .text-responsive-xl {
-    @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl;
-  }
-  
-  .text-responsive-2xl {
-    @apply text-3xl sm:text-4xl lg:text-5xl xl:text-6xl;
-  }
-  
-  /* Padding responsivo */
-  .padding-responsive {
-    @apply p-4 sm:p-6 lg:p-8 xl:p-12;
-  }
-  
-  .padding-responsive-x {
-    @apply px-4 sm:px-6 lg:px-8 xl:px-12;
-  }
-  
-  .padding-responsive-y {
-    @apply py-8 sm:py-12 lg:py-16 xl:py-20;
-  }
-}
-
-/* Utilitários para nuvem de imagens (flutuação e rotação lentas) */
-@keyframes floatY {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes slowSpin {
-  to { transform: rotate(360deg); }
-}
-
-@layer utilities {
-  .animate-float-slow { animation: floatY 6s ease-in-out infinite; }
-  .animate-float-slower { animation: floatY 8s ease-in-out infinite; }
-  .animate-slow-spin { animation: slowSpin 40s linear infinite; }
-  .anim-delay-500 { animation-delay: 0.5s; }
-  .anim-delay-1000 { animation-delay: 1s; }
-  .anim-delay-1500 { animation-delay: 1.5s; }
-  .anim-delay-2000 { animation-delay: 2s; }
-}
-
-/* Animação personalizada para elementos que entram na tela */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
 }
 
 /* Melhorias nos focus states para acessibilidade */
@@ -174,44 +146,6 @@ body {
 
       --sidebar-border: 220 13% 91%;
 
-      --sidebar-ring: 217.2 91.2% 59.8%;
-    }
-
-    .dark {
-      --background: 222.2 84% 4.9%;
-      --foreground: 210 40% 98%;
-
-      --card: 222.2 84% 4.9%;
-      --card-foreground: 210 40% 98%;
-
-      --popover: 222.2 84% 4.9%;
-      --popover-foreground: 210 40% 98%;
-
-      --primary: 210 40% 98%;
-      --primary-foreground: 222.2 47.4% 11.2%;
-
-      --secondary: 217.2 32.6% 17.5%;
-      --secondary-foreground: 210 40% 98%;
-
-      --muted: 217.2 32.6% 17.5%;
-      --muted-foreground: 215 20.2% 65.1%;
-
-      --accent: 217.2 32.6% 17.5%;
-      --accent-foreground: 210 40% 98%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 210 40% 98%;
-
-      --border: 217.2 32.6% 17.5%;
-      --input: 217.2 32.6% 17.5%;
-      --ring: 212.7 26.8% 83.9%;
-      --sidebar-background: 240 5.9% 10%;
-      --sidebar-foreground: 240 4.8% 95.9%;
-      --sidebar-primary: 224.3 76.3% 48%;
-      --sidebar-primary-foreground: 0 0% 100%;
-      --sidebar-accent: 240 3.7% 15.9%;
-      --sidebar-accent-foreground: 240 4.8% 95.9%;
-      --sidebar-border: 240 3.7% 15.9%;
       --sidebar-ring: 217.2 91.2% 59.8%;
     }
   }
@@ -286,180 +220,38 @@ body {
   }
 
   /* ========================================================================== */
-  /* Estilização Customizada para Carrossel Horizontal (Swiper) - CORRIGIDO     */
-  /* ========================================================================== */
-
-  /* Estilo das setas de navegação (para TODAS as telas) */
-  .swiper-button-prev,
-  .swiper-button-next {
-    --swiper-navigation-size: 2rem; /* Tamanho do ícone da seta */
-    color: #40E0D0; /* Cor Turquesa */
-    background-color: rgba(17, 17, 17, 0.6);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid #333;
-    backdrop-filter: blur(5px);
-    transition: background-color 0.3s ease;
-  }
-
-  .swiper-button-prev:hover,
-  .swiper-button-next:hover {
-    background-color: rgba(25, 25, 25, 0.9);
-  }
-
-  /* Ajuste fino de posição para desktop */
-  @media (min-width: 768px) {
-    .swiper-button-prev {
-      left: -10px;
-    }
-    .swiper-button-next {
-      right: -10px;
-    }
-  }
-
-  /* Estilo da Paginação (bolinhas) */
-  .swiper-pagination-bullet {
-    background-color: #666;
-    width: 10px;
-    height: 10px;
-    opacity: 0.8;
-    transition: background-color 0.3s ease;
-  }
-
-  .swiper-pagination-bullet-active {
-    background-color: #40E0D0;
-    transform: scale(1.2);
-  }
-
-  .swiper-pagination {
-    bottom: 0px !important;
-  }
-  /* ========================================================================== */
-  /* Correção de Visibilidade para o Botão Flutuante do WhatsApp                */
-  /* ========================================================================== */
-
-  /* Este seletor encontra especificamente o link do WhatsApp e força 
-    sua visibilidade, sobrescrevendo qualquer regra problemática 
-    dos arquivos base do Lovable.
-  */
-  a[href*="wa.me"] {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    z-index: 9999 !important; /* Garante que ele fique na frente de tudo */
-  }
-
-
-  /* ========================================================================== */
   /* Animação Customizada para o Botão Flutuante do WhatsApp                    */
   /* ========================================================================== */
 
-  @keyframes whatsapp-pulse {
+  /* Anel expansivo via transform/opacity (GPU) em vez de box-shadow (pintura
+     a cada frame) — mesmo efeito visual de pulso, sem custo de repaint. */
+  @keyframes whatsapp-pulse-ring {
     0% {
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); /* Cor do pulso */
+      transform: scale(1);
+      opacity: 0.7;
     }
     70% {
-      box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); /* Pulso se expande e fica transparente */
+      transform: scale(1.65);
+      opacity: 0;
     }
     100% {
-      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); /* Volta ao estado inicial */
+      transform: scale(1.65);
+      opacity: 0;
     }
   }
 
   .animate-pulse-whatsapp {
-    animation: whatsapp-pulse 2s infinite; /* Aplica a animação com duração de 2s e infinita */
+    isolation: isolate;
   }
 
-  /* ======================== */
-  /* Orbit bubbles (Amigos UP)*/
-  /* ======================== */
-  @keyframes orbit360 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .bubble-orbit {
+  .animate-pulse-whatsapp::before {
+    content: "";
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform-origin: 0 0;
-    animation: orbit360 var(--speed, 30s) linear infinite;
-    will-change: transform;
-  }
-  .bubble-orbit.reverse {
-    animation-direction: reverse;
-  }
-  .bubble-orbit:hover {
-    animation-play-state: paused;
-    z-index: 30;
-  }
-
-  .bubble-img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: translateX(var(--radius, 140px)) translate(-50%, -50%);
-    width: var(--size, 44px);
-    height: var(--size, 44px);
+    inset: 0;
+    z-index: -1;
     border-radius: 9999px;
-    border: 2px solid #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,.18);
-    transition: transform 300ms ease, box-shadow 300ms ease, filter 300ms ease;
-    will-change: transform, filter;
+    background: rgba(37, 211, 102, 0.7);
+    animation: whatsapp-pulse-ring 2s infinite;
+    pointer-events: none;
   }
-  .bubble-img:hover {
-    transform: translateX(var(--radius, 140px)) translate(-50%, -50%) scale(1.35);
-    box-shadow: 0 12px 28px rgba(0,0,0,.28);
-    filter: saturate(1.15);
-    z-index: 40;
-  }
-
-  /* Drift across screen variants */
-  @keyframes drift-lr {
-    0%   { transform: translate(-12vw, var(--y, 0)); }
-    100% { transform: translate(112vw, var(--y, 0)); }
-  }
-  @keyframes drift-rl {
-    0%   { transform: translate(112vw, var(--y, 0)); }
-    100% { transform: translate(-12vw, var(--y, 0)); }
-  }
-  @keyframes drift-d1 {
-    0%   { transform: translate(-12vw, -12vh); }
-    100% { transform: translate(112vw, 22vh); }
-  }
-  @keyframes drift-d2 {
-    0%   { transform: translate(-12vw, 22vh); }
-    100% { transform: translate(112vw, -12vh); }
-  }
-
-  .drift {
-    position: absolute;
-    will-change: transform;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
-  .drift.lr { animation-name: drift-lr; }
-  .drift.rl { animation-name: drift-rl; }
-  .drift.d1 { animation-name: drift-d1; }
-  .drift.d2 { animation-name: drift-d2; }
-
-  .drift .bubble-img {
-    position: relative;
-    left: 0; top: 0;
-    transform: translate(-50%, -50%);
-    transition: transform 250ms ease, box-shadow 250ms ease, filter 250ms ease;
-    width: var(--size, 44px);
-    height: var(--size, 44px);
-    object-fit: cover; /* não deforma */
-    border-radius: 9999px;
-    border: 2px solid #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,.18);
-  }
-  .drift .bubble-img:hover {
-    transform: translate(-50%, -50%) scale(1.35);
-    box-shadow: 0 12px 28px rgba(0,0,0,.28);
-    filter: saturate(1.15);
-  }
-
 

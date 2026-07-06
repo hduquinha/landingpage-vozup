@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import HeroSection from "@/components/HeroSection";
 import { LandingPageProvider } from "@/context/LandingPageContext";
-import { DEFAULT_ORIGEM } from "@/lib/landingPages";
+import type { LandingPageProfile } from "@/lib/landingPages";
 
 const ProblemsSection = lazy(() => import("@/components/ProblemsSection"));
 const AboutTrainingSection = lazy(() => import("@/components/AboutTrainingSection"));
@@ -14,26 +14,26 @@ const LocationSection = lazy(() => import("@/components/LocationSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 const FinalCtaSection = lazy(() => import("@/components/FinalCtaSection"));
 
-const Index = () => {
+const LandingPage = ({ profile }: { profile: LandingPageProfile }) => {
   return (
-    <LandingPageProvider origem={DEFAULT_ORIGEM}>
+    <LandingPageProvider origem={profile.origem} content={profile.content}>
       <div className="min-h-screen">
-      <HeroSection />
-      <Suspense fallback={null}>
-        <ProblemsSection />
-        <AboutTrainingSection />
-        <VideoSection />
-        <TestimonialsSection />
-        <TrainersSection />
-        <TrainingContentSection />
-        <PricingSection />
-        <LocationSection />
-        <FAQSection />
-        <FinalCtaSection />
-      </Suspense>
-    </div>
+        <HeroSection />
+        <Suspense fallback={null}>
+          <ProblemsSection />
+          <AboutTrainingSection />
+          <VideoSection />
+          <TestimonialsSection />
+          <TrainersSection />
+          <TrainingContentSection />
+          <PricingSection />
+          <LocationSection />
+          <FAQSection />
+          <FinalCtaSection />
+        </Suspense>
+      </div>
     </LandingPageProvider>
   );
 };
 
-export default Index;
+export default LandingPage;

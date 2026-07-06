@@ -1,7 +1,18 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { trackPageView } from "@/lib/analytics";
-import { absoluteUrl, buildHomeStructuredData, getRouteSeo, homeSeo, siteName } from "@/lib/seo";
+import {
+  absoluteUrl,
+  buildHomeStructuredData,
+  getCanonicalUrl,
+  getIndexRobots,
+  getRouteSeo,
+  homeSeo,
+  siteName,
+  type RouteSeo,
+} from "@/lib/seo";
+import { getProfileByRoute } from "@/lib/landingPages";
+import { defaultLandingPageContent } from "@/lib/landingPageContent";
 
 const upsertMeta = (attribute: "name" | "property", key: string, content: string) => {
   let tag = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
@@ -49,7 +60,15 @@ const SeoManager = () => {
   const lastTrackedPath = useRef("");
 
   useEffect(() => {
-    const routeSeo = getRouteSeo(location.pathname);
+    const profile = getProfileByRoute(location.pathname);
+    const routeSeo: RouteSeo = profile
+      ? {
+          title: (profile.content ?? defaultLandingPageContent).seo.title,
+          description: (profile.content ?? defaultLandingPageContent).seo.description,
+          canonical: getCanonicalUrl(location.pathname),
+          robots: getIndexRobots(),
+        }
+      : getRouteSeo(location.pathname);
     const imagePath = routeSeo.imagePath || homeSeo.imagePath;
     const imageUrl = absoluteUrl(imagePath);
     const isSocialPreviewImage = imagePath === homeSeo.imagePath;

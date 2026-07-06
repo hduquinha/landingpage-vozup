@@ -5,13 +5,16 @@ const LocationSection = () => {
   const address = "Rua Azevedo Soares, 1334 - Tatuapé, São Paulo - SP";
 
   return (
-    <section className="bg-cream px-4 py-20 text-ink sm:px-6 lg:py-28">
+    <section id="localizacao" className="bg-cream px-4 py-20 text-ink sm:px-6 lg:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 grid gap-8 lg:grid-cols-[0.8fr,1.2fr] lg:items-end">
           <div>
+            <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.3em] text-[#0d94a4]/60">
+              Curso de Oratória
+            </p>
             <SectionLabel className="mb-5">Unidade presencial</SectionLabel>
-            <h2 className="text-4xl font-extrabold leading-[1.0] sm:text-5xl">
-              VozUP no coração do Tatuapé.
+            <h2 className="text-3xl font-extrabold leading-[1.1] sm:text-4xl">
+              <span className="text-[#0d94a4]">Curso de Oratória - </span>VozUP no coração do Tatuapé.
             </h2>
           </div>
           <p className="rounded-2xl border-l-4 border-[#00AFC1] bg-white/70 p-6 text-lg leading-relaxed text-slate-600 shadow-card">

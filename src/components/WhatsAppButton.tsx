@@ -1,42 +1,47 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, MessageCircle, X } from "lucide-react";
-import whatsappLogo from "@/assets/wwplogo.png";
+import whatsappLogo from "@/assets/wwplogo-icon.webp";
 import { submitLead } from "@/lib/lead";
 import { trackLeadFormSubmit } from "@/lib/analytics";
-
-const goals = [
-  "Perder o medo de falar em público",
-  "Melhorar apresentações no trabalho",
-  "Liderança e reuniões",
-  "Vendas, vídeos ou redes sociais",
-];
-
-const startOptions = [
-  "O mais rápido possível",
-  "Neste mês",
-  "Nos próximos 3 meses",
-  "Ainda estou pesquisando",
-];
+import { getOrigemForCurrentPath } from "@/lib/landingPages";
+import {
+  interestReasonOptions,
+  interestReasonQuestion,
+  presencialQuestion,
+  startTimingOptions,
+  startTimingQuestion,
+  yesNoOptions,
+} from "@/lib/leadFormQuestions";
 
 const inputClass =
   "h-10 w-full rounded-xl border border-gray-200 bg-cream/50 px-4 text-sm outline-none transition focus:border-[#00AFC1] focus:bg-white focus:ring-2 focus:ring-[#00AFC1]/20";
 
 const WhatsAppButton = () => {
+  const origem = getOrigemForCurrentPath();
   const [isOpen, setIsOpen] = useState(false);
   const [showConfirmClose, setShowConfirmClose] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [goal, setGoal] = useState(goals[0]);
-  const [startTime, setStartTime] = useState(startOptions[0]);
-  const [comment, setComment] = useState("");
+  const [quandoComecar, setQuandoComecar] = useState(startTimingOptions[0]);
+  const [goal, setGoal] = useState(interestReasonOptions[0]);
+  const [disponibilidadePresencial, setDisponibilidadePresencial] = useState(yesNoOptions[0]);
+  const [revealed, setRevealed] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "saved" | "error">("idle");
+  const revealedFieldsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (revealed) {
+      revealedFieldsRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [revealed]);
 
   const resetForm = () => {
     setName("");
     setPhone("");
-    setGoal(goals[0]);
-    setStartTime(startOptions[0]);
-    setComment("");
+    setQuandoComecar(startTimingOptions[0]);
+    setGoal(interestReasonOptions[0]);
+    setDisponibilidadePresencial(yesNoOptions[0]);
+    setRevealed(false);
     setStatus("idle");
   };
 
@@ -57,14 +62,23 @@ const WhatsAppButton = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!revealed) {
+      setRevealed(true);
+      return;
+    }
+
     setStatus("sending");
 
     try {
       await submitLead({
         name,
         phone,
+        quandoComecar,
         goal,
-        source: `botão flutuante | início: ${startTime}${comment ? ` | obs: ${comment}` : ""}`,
+        disponibilidadePresencial,
+        source: "botão flutuante",
+        origem,
       });
       trackLeadFormSubmit("botão flutuante", goal);
       setStatus("saved");
@@ -91,9 +105,8 @@ const WhatsAppButton = () => {
           <img
             src={whatsappLogo}
             alt="WhatsApp"
-            width={2048}
-            height={2048}
-            loading="lazy"
+            width={192}
+            height={192}
             decoding="async"
             className="h-full w-full rounded-full object-contain"
           />
@@ -113,15 +126,24 @@ const WhatsAppButton = () => {
               {/* Header */}
               <div className="flex items-start justify-between border-b border-gray-100 px-6 pt-4 pb-4">
                 <div>
-                  <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0d94a4]">
-                    <span className="h-px w-6 bg-[#0d94a4]" />
-                    Aula experimental
-                  </p>
+                  <div className="flex items-center gap-3">
+                    <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0d94a4]">
+                      <span className="h-px w-6 bg-[#0d94a4]" />
+                      Aula experimental
+                    </p>
+                    {status !== "saved" && (
+                      <span className="flex-shrink-0 rounded-full bg-[#EAFBFC] px-3 py-1 text-[0.6rem] font-bold uppercase tracking-wide text-[#0d94a4]">
+                        Passo {revealed ? "2" : "1"} de 2
+                      </span>
+                    )}
+                  </div>
                   <h3 className="mt-1 font-display text-xl font-extrabold leading-tight text-ink">
                     Dê o primeiro passo
                   </h3>
                   <p className="mt-1 text-xs leading-relaxed text-gray-500">
-                    Preencha em menos de 30 segundos e nossa equipe entra em contato.
+                    {revealed && status !== "saved"
+                      ? "Só mais um passo: responda as perguntas abaixo para confirmar sua inscrição."
+                      : "Preencha em menos de 30 segundos e nossa equipe entra em contato."}
                   </p>
                 </div>
                 <button
@@ -176,45 +198,51 @@ const WhatsAppButton = () => {
                     />
                   </label>
 
-                  <label className="block">
-                    <span className="mb-1 block text-sm font-bold text-ink">Seu principal objetivo</span>
-                    <select
-                      value={goal}
-                      onChange={(e) => setGoal(e.target.value)}
-                      className={inputClass}
+                  {revealed && (
+                    <div
+                      ref={revealedFieldsRef}
+                      className="animate-in fade-in slide-in-from-top-2 space-y-3 duration-300"
                     >
-                      {goals.map((item) => (
-                        <option key={item} value={item}>{item}</option>
-                      ))}
-                    </select>
-                  </label>
+                      <label className="block">
+                        <span className="mb-1 block text-sm font-bold text-ink">{startTimingQuestion}</span>
+                        <select
+                          value={quandoComecar}
+                          onChange={(e) => setQuandoComecar(e.target.value)}
+                          className={inputClass}
+                        >
+                          {startTimingOptions.map((item) => (
+                            <option key={item} value={item}>{item}</option>
+                          ))}
+                        </select>
+                      </label>
 
-                  <label className="block">
-                    <span className="mb-1 block text-sm font-bold text-ink">Quando pretende iniciar?</span>
-                    <select
-                      value={startTime}
-                      onChange={(e) => setStartTime(e.target.value)}
-                      className={inputClass}
-                    >
-                      {startOptions.map((item) => (
-                        <option key={item} value={item}>{item}</option>
-                      ))}
-                    </select>
-                  </label>
+                      <label className="block">
+                        <span className="mb-1 block text-sm font-bold text-ink">{interestReasonQuestion}</span>
+                        <select
+                          value={goal}
+                          onChange={(e) => setGoal(e.target.value)}
+                          className={inputClass}
+                        >
+                          {interestReasonOptions.map((item) => (
+                            <option key={item} value={item}>{item}</option>
+                          ))}
+                        </select>
+                      </label>
 
-                  <label className="block">
-                    <span className="mb-1 block text-sm font-bold text-ink">
-                      Alguma observação?{" "}
-                      <span className="font-normal text-gray-400">(opcional)</span>
-                    </span>
-                    <textarea
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      placeholder="Conte um pouco mais sobre o que você busca..."
-                      rows={2}
-                      className="w-full resize-none rounded-xl border border-gray-200 bg-cream/50 px-4 py-2 text-sm outline-none transition focus:border-[#00AFC1] focus:bg-white focus:ring-2 focus:ring-[#00AFC1]/20"
-                    />
-                  </label>
+                      <label className="block">
+                        <span className="mb-1 block text-sm font-bold text-ink">{presencialQuestion}</span>
+                        <select
+                          value={disponibilidadePresencial}
+                          onChange={(e) => setDisponibilidadePresencial(e.target.value)}
+                          className={inputClass}
+                        >
+                          {yesNoOptions.map((item) => (
+                            <option key={item} value={item}>{item}</option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  )}
 
                   {status === "error" && (
                     <div className="rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-700">

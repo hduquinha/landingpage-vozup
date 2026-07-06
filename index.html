@@ -3,34 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/webp" href="/vozup-logo.webp" />
-    <link rel="icon" type="image/png" href="/vozup-logo.png" />
-    <link rel="apple-touch-icon" href="/vozup-logo.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <!-- Logo do cabeçalho: carregada pelo React, sem descoberta pelo parser HTML -->
+    <link rel="preload" href="/VozUP_vetor_fundo-claro.svg" as="image" type="image/svg+xml" fetchpriority="high" />
 
     <!-- DNS prefetch + preconnect para terceiros -->
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Fonts — carregamento não bloqueante -->
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
-      as="style"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
+    <!-- Fontes auto-hospedadas (ver @font-face em src/index.css). Preload
+         só dos arquivos usados acima da dobra: Inter (corpo/labels) e
+         Poppins 800 (peso predominante dos títulos, incl. o H1). -->
+    <link rel="preload" href="/fonts/inter-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/poppins-800-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta name="theme-color" content="#00AFC1" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -67,7 +54,9 @@
     <meta name="twitter:image" content="/og-vozup.jpg" />
     <meta name="twitter:image:alt" content="VozUP - Curso de oratória presencial no Tatuapé" />
 
-    <!-- Meta Pixel — stub imediato, SDK carregado após page load para não bloquear FCP/LCP -->
+    <!-- Meta Pixel — stub imediato (fbq/queue), SDK real carregado só na
+         primeira interação do usuário ou após load + fallback de 3.5s, mesma
+         estratégia usada no GTM, para não competir com o JS crítico. -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -79,12 +68,25 @@
       fbq('track', 'PageView');
     </script>
     <script>
-      window.addEventListener('load', function() {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://connect.facebook.net/en_US/fbevents.js';
-        document.head.appendChild(s);
-      }, { once: true });
+      (function (w, d) {
+        var loaded = false;
+        function load() {
+          if (loaded) return;
+          loaded = true;
+          var s = d.createElement('script');
+          s.async = true;
+          s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+          d.head.appendChild(s);
+        }
+        ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'].forEach(function (evt) {
+          w.addEventListener(evt, load, { passive: true, once: true });
+        });
+        if (d.readyState === 'complete') {
+          setTimeout(load, 3500);
+        } else {
+          w.addEventListener('load', function () { setTimeout(load, 3500); });
+        }
+      })(window, document);
     </script>
     <!-- End Meta Pixel Code -->
   </head>

@@ -1,35 +1,36 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import Checkout from "./pages/Checkout";
+import Blog from "./pages/Blog";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SeoManager from "./components/SeoManager";
-
-const queryClient = new QueryClient();
+import { LANDING_PAGE_PROFILES } from "@/lib/landingPages";
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <SeoManager />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/checkout-success" element={<CheckoutSuccess />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/checkout-failure" element={<CheckoutSuccess />} />
-          <Route path="/checkout-pending" element={<CheckoutSuccess />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <BrowserRouter>
+    <SeoManager />
+    <Routes>
+      <Route path="/" element={<Index />} />
+      {LANDING_PAGE_PROFILES.map((profile) => (
+        <Route
+          key={profile.id}
+          path={profile.route}
+          element={<LandingPage profile={profile} />}
+        />
+      ))}
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
+      <Route path="/checkout-success" element={<CheckoutSuccess />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/checkout-failure" element={<CheckoutSuccess />} />
+      <Route path="/checkout-pending" element={<CheckoutSuccess />} />
+      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </BrowserRouter>
 );
 
 export default App;

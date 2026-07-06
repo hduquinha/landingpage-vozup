@@ -2,23 +2,30 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   ChevronDown,
+  ClipboardList,
   MapPin,
-  MessageCircle,
   ShieldCheck,
   Timer,
   Users,
 } from "lucide-react";
-import vozupLogo from "@/assets/vozup-logo-dark.webp";
-import speakerWoman from "@/assets/speaker-woman-commercial.webp";
-import { openWhatsApp, scrollToLead } from "@/lib/lead";
+const vozupLogo = "/VozUP_vetor_fundo-claro.svg";
+import { scrollToLead } from "@/lib/lead";
 import LeadForm from "@/components/LeadForm";
+import { useLandingPage } from "@/context/LandingPageContext";
+
+const highlightIcons = [Timer, ShieldCheck, Users];
 
 const HeroSection = () => {
-  const highlights = [
-    { icon: Timer, text: "Evolução mais rápida" },
-    { icon: ShieldCheck, text: "Método prático" },
-    { icon: Users, text: "Aulas presenciais" },
-  ];
+  const { content } = useLandingPage();
+  const highlights = content.hero.highlights.map((text, index) => ({
+    icon: highlightIcons[index],
+    text,
+  }));
+
+  const scrollToHeroForm = () => {
+    const form = document.getElementById("hero-form");
+    if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
     <section className="relative overflow-hidden bg-cream px-4 pb-16 pt-6 text-ink sm:px-6 lg:pb-24">
@@ -35,14 +42,14 @@ const HeroSection = () => {
             width={697}
             height={281}
             decoding="async"
-            className="h-11 w-auto sm:h-14"
+            className="h-[69px] w-auto sm:h-[88px]"
           />
           <button
-            onClick={() => openWhatsApp("botão do topo")}
+            onClick={scrollToHeroForm}
             className="hidden items-center gap-2 rounded-full border border-ink/15 bg-white/70 px-5 py-2.5 text-sm font-bold text-ink shadow-sm backdrop-blur transition hover:bg-ink hover:text-white sm:flex"
           >
-            <MessageCircle className="h-4 w-4" />
-            WhatsApp
+            <ClipboardList className="h-4 w-4" />
+            Quero me inscrever
           </button>
         </header>
 
@@ -54,17 +61,14 @@ const HeroSection = () => {
             </div>
 
             <h1 className="max-w-3xl text-[2.6rem] font-extrabold leading-[0.98] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-              Escola VozUP
-              <br className="hidden sm:block" /> no Tatuapé.
+              {content.hero.titleLine1}
               <span className="mt-1 block text-[#0d94a4]">
-                Curso de oratória presencial.
+                {content.hero.titleLine2}
               </span>
             </h1>
 
             <p className="mt-7 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-              Escola VozUP de oratória e liderança emocional no Tatuapé.
-              Nosso método foi desenhado para ser mais direto, rápido e eficaz
-              que cursos tradicionais e modelos genéricos da concorrência.
+              {content.hero.subtitle}
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -84,10 +88,7 @@ const HeroSection = () => {
                 variant="cta"
                 size="lg"
                 className="h-auto rounded-full bg-[#00AFC1] px-7 py-4 text-base font-bold normal-case tracking-normal text-white shadow-lift hover:bg-ink hover:text-white"
-                onClick={() => {
-                  const form = document.getElementById("hero-form");
-                  if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
-                }}
+                onClick={scrollToHeroForm}
               >
                 Preencher formulário
                 <ArrowRight className="h-5 w-5" />

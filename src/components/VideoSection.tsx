@@ -1,40 +1,42 @@
 import { Activity, MessageSquare, Mic, Sparkles, Timer, TrendingUp } from "lucide-react";
-import speakerCoach from "@/assets/speaker-coach-commercial.png";
+import speakerCoach from "@/assets/speaker-coach-commercial.webp";
+import speakerCoachMobile from "@/assets/speaker-coach-commercial-mobile.webp";
 import { SectionLabel } from "@/components/editorial";
+import { useLandingPage } from "@/context/LandingPageContext";
+
+const stepIcons = [Mic, Activity, MessageSquare, Sparkles];
 
 const VideoSection = () => {
-  const steps = [
-    { icon: Mic, title: "Voz", text: "respiração, dicção, volume, ritmo e pausas" },
-    { icon: Activity, title: "Corpo", text: "postura, presença, gestos e contato visual" },
-    { icon: MessageSquare, title: "Mensagem", text: "roteiro, clareza, histórias e argumentação" },
-    { icon: Sparkles, title: "Emoção", text: "ansiedade, confiança e liderança sob pressão" },
-  ];
+  const { content } = useLandingPage();
+  const steps = content.video.steps.map((step, index) => ({
+    icon: stepIcons[index],
+    ...step,
+  }));
 
   return (
-    <section className="relative overflow-hidden bg-cream-deep px-4 py-20 text-ink sm:px-6 lg:py-28">
+    <section id="metodo" className="relative overflow-hidden bg-cream-deep px-4 py-14 text-ink sm:px-6 sm:py-20 lg:py-28">
       <div className="absolute inset-0 bg-grid opacity-50" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="grid gap-10 lg:grid-cols-[0.82fr,1.18fr] lg:items-center">
           <div>
-            <SectionLabel className="mb-5">Método VozUP</SectionLabel>
+            <SectionLabel className="mb-5">{content.video.sectionLabel}</SectionLabel>
 
-            <h2 className="text-3xl font-extrabold leading-[1.02] sm:text-5xl">
-              Mais rápido porque você treina desde a primeira aula.
+            <h2 className="text-2xl font-extrabold leading-[1.1] sm:text-4xl">
+              <span className="text-[#0d94a4]">Curso de Oratória - </span>
+              {content.video.headingLine1}
             </h2>
 
             <p className="mt-6 text-lg leading-relaxed text-slate-600">
-              Enquanto métodos tradicionais costumam prender o aluno em muita
-              teoria, a VozUP acelera a evolução com prática, correção imediata
-              e repetição guiada.
+              {content.video.intro}
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-ink/5 bg-white p-6 shadow-card">
                 <Timer className="mb-3 h-7 w-7 text-[#0d94a4]" />
-                <p className="text-lg font-extrabold">Menos teoria solta</p>
+                <p className="text-lg font-extrabold">{content.video.cardOneTitle}</p>
                 <p className="mt-1 text-sm text-slate-500">
-                  Mais exercícios aplicados ao seu objetivo real.
+                  {content.video.cardOneText}
                 </p>
               </div>
 
@@ -44,26 +46,29 @@ const VideoSection = () => {
                 <div className="relative z-10">
                   <TrendingUp className="mb-3 h-7 w-7 text-[#7BE7EF]" />
                   <p className="text-lg font-extrabold">
-                    Mais evolução percebida
+                    {content.video.cardTwoTitle}
                   </p>
                   <p className="mt-1 text-sm text-gray-300">
-                    Você fala, ajusta e melhora no próprio treino.
+                    {content.video.cardTwoText}
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="relative rounded-3xl border border-ink/5 bg-white p-5 shadow-soft sm:p-7">
-            <img
-              src={speakerCoach}
-              alt="Treinador de oratória orientando aluno"
-              width={760}
-              height={1140}
-              loading="lazy"
-              decoding="async"
-              className="mx-auto mb-4 max-h-[360px] w-auto object-contain drop-shadow-xl lg:absolute lg:-left-16 lg:bottom-0 lg:mb-0 lg:max-h-[520px]"
-            />
+          <div className="relative rounded-3xl border border-ink/5 bg-white p-4 shadow-soft sm:p-7">
+            <picture>
+              <source media="(min-width: 1024px)" srcSet={speakerCoach} />
+              <img
+                src={speakerCoachMobile}
+                alt="Treinador de oratória orientando aluno"
+                width={640}
+                height={685}
+                loading="lazy"
+                decoding="async"
+                className="mx-auto mb-3 max-h-[190px] w-auto object-contain drop-shadow-xl sm:mb-4 sm:max-h-[300px] lg:absolute lg:-left-16 lg:bottom-0 lg:mb-0 lg:max-h-[520px]"
+              />
+            </picture>
 
             <div className="lg:ml-56">
               {steps.map((step, index) => (
@@ -71,7 +76,7 @@ const VideoSection = () => {
                   key={step.title}
                   className="grid gap-3 border-b border-gray-100 py-5 last:border-b-0 sm:grid-cols-[60px,1fr,auto] sm:items-center"
                 >
-                  <span className="font-display text-3xl font-black text-[#0d94a4]/15">
+                  <span className="font-display text-3xl font-black text-[#0d94a4]">
                     0{index + 1}
                   </span>
 

@@ -13,10 +13,18 @@ export const businessAddress = {
 };
 
 export const homeSeo = {
-  title: "Escola VozUP | Curso de Oratória no Tatuapé",
+  title: "Curso de Oratória Presencial | Escola VozUP no Tatuapé",
   description:
     "Escola VozUP de oratória e liderança emocional no Tatuapé, São Paulo. Treine fala em público, voz, presença e comunicação com método prático.",
   imagePath: "/og-vozup.jpg",
+};
+
+export type RouteSeo = {
+  title: string;
+  description: string;
+  canonical: string;
+  robots: string;
+  imagePath?: string;
 };
 
 export const seoTopics = [
@@ -36,27 +44,27 @@ export const faqItems = [
   {
     question: "A VozUP é para quem tem medo de falar em público?",
     answer:
-      "Sim. A escola atende tanto pessoas que travam ao falar quanto profissionais que já se comunicam bem e querem ganhar mais presença, clareza e liderança.",
+      "Sim. O curso de oratória da VozUP atende tanto pessoas que travam ao falar quanto profissionais que já se comunicam bem e querem ganhar mais presença, clareza e liderança.",
   },
   {
-    question: "As aulas são presenciais?",
+    question: "As aulas do curso de oratória são presenciais?",
     answer:
-      "A proposta principal da unidade Tatuapé é presencial, na Rua Azevedo Soares, 1334. A disponibilidade de horários deve ser confirmada com a equipe.",
+      "A proposta principal do curso de oratória na unidade Tatuapé é presencial, na Rua Azevedo Soares, 1334. A disponibilidade de horários deve ser confirmada com a equipe.",
   },
   {
-    question: "Preciso ter experiência com apresentações?",
+    question: "Preciso ter experiência com apresentações para fazer o curso de oratória?",
     answer:
-      "Não. O método parte do nível atual do aluno e evolui com exercícios práticos, feedback e repetição guiada.",
+      "Não. O método do curso de oratória parte do nível atual do aluno e evolui com exercícios práticos, feedback e repetição guiada.",
   },
   {
-    question: "O curso serve para liderança e vendas?",
+    question: "O curso de oratória serve para liderança e vendas?",
     answer:
-      "Serve. A comunicação trabalhada na VozUP é aplicada a reuniões, apresentações, negociações, vídeos, liderança de equipes e conversas difíceis.",
+      "Serve. A comunicação trabalhada no curso de oratória da VozUP é aplicada a reuniões, apresentações, negociações, vídeos, liderança de equipes e conversas difíceis.",
   },
   {
-    question: "Como faço para saber valores e turmas?",
+    question: "Como faço para saber valores e turmas do curso de oratória?",
     answer:
-      "Clique no botão de WhatsApp da página para falar com a equipe, consultar horários e receber as condições atuais.",
+      "Clique no botão \"Quero me inscrever\" (ou no CTA principal que direciona ao formulário) para acessar o formulário. Após o envio, nossa equipe entrará em contato para apresentar os horários disponíveis, esclarecer suas dúvidas e informar as condições atuais.",
   },
 ];
 
@@ -87,16 +95,35 @@ export const getCanonicalUrl = (pathname = "/") => {
   return absoluteUrl(cleanPath);
 };
 
-const getIndexRobots = () =>
+export const getIndexRobots = () =>
   import.meta.env.VITE_ROBOTS_NOINDEX === "true"
     ? "noindex, nofollow"
     : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
-export const getRouteSeo = (pathname: string) => {
+export const getRouteSeo = (pathname: string): RouteSeo => {
   if (pathname === "/") {
     return {
       ...homeSeo,
       canonical: getCanonicalUrl("/"),
+      robots: getIndexRobots(),
+    };
+  }
+
+  if (pathname === "/blog") {
+    return {
+      title: "Blog VozUP | Oratória e Liderança Emocional",
+      description: "Conteúdos da VozUP sobre oratória, comunicação e liderança emocional. Em breve, novos artigos por aqui.",
+      canonical: getCanonicalUrl(pathname),
+      robots: getIndexRobots(),
+    };
+  }
+
+  if (pathname === "/politica-de-privacidade") {
+    return {
+      title: "Política de Privacidade | VozUP",
+      description:
+        "Como a Escola VozUP coleta, usa e protege os dados pessoais de quem preenche formulários no site e em anúncios de lead.",
+      canonical: getCanonicalUrl(pathname),
       robots: getIndexRobots(),
     };
   }
