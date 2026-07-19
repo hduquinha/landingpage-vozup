@@ -1,35 +1,39 @@
 import { lazy, Suspense } from "react";
-import HeroSection from "@/components/HeroSection";
+import HeroSectionClassic from "@/components/HeroSectionClassic";
 import { LandingPageProvider } from "@/context/LandingPageContext";
-import { DEFAULT_ORIGEM } from "@/lib/landingPages";
 
-const ProblemsSection = lazy(() => import("@/components/ProblemsSection"));
-const AboutTrainingSection = lazy(() => import("@/components/AboutTrainingSection"));
-const VideoSection = lazy(() => import("@/components/VideoSection"));
-const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
-const TrainersSection = lazy(() => import("@/components/TrainersSection"));
-const TrainingContentSection = lazy(() => import("@/components/TrainingContentSection"));
-const PricingSection = lazy(() => import("@/components/PricingSection"));
-const LocationSection = lazy(() => import("@/components/LocationSection"));
-const FAQSection = lazy(() => import("@/components/FAQSection"));
-const FinalCtaSection = lazy(() => import("@/components/FinalCtaSection"));
+const ProblemsSectionClassic = lazy(() => import("@/components/ProblemsSectionClassic"));
+const AboutTrainingSectionClassic = lazy(() => import("@/components/AboutTrainingSectionClassic"));
+const VideoSectionClassic = lazy(() => import("@/components/VideoSectionClassic"));
+const TestimonialsSectionClassic = lazy(() => import("@/components/TestimonialsSectionClassic"));
+const TrainersSectionClassic = lazy(() => import("@/components/TrainersSectionClassic"));
+const TrainingContentSectionClassic = lazy(() => import("@/components/TrainingContentSectionClassic"));
+const PricingSectionClassic = lazy(() => import("@/components/PricingSectionClassic"));
+const LocationSectionClassic = lazy(() => import("@/components/LocationSectionClassic"));
+const FAQSectionClassic = lazy(() => import("@/components/FAQSectionClassic"));
+const FinalCtaSectionClassic = lazy(() => import("@/components/FinalCtaSectionClassic"));
 
+/**
+ * Home ("/") usa as versões "Classic" dos componentes — o estado exato de antes
+ * da reforma mobile-first / pop-up / compactação, que foi aplicada só em /p/1-4
+ * (ver LandingPage.tsx). Não compartilhar esses componentes com LandingPage.tsx.
+ */
 const Index = () => {
   return (
-    <LandingPageProvider origem={DEFAULT_ORIGEM}>
+    <LandingPageProvider>
       <div className="min-h-screen">
-      <HeroSection />
+      <HeroSectionClassic />
       <Suspense fallback={null}>
-        <ProblemsSection />
-        <AboutTrainingSection />
-        <VideoSection />
-        <TestimonialsSection />
-        <TrainersSection />
-        <TrainingContentSection />
-        <PricingSection />
-        <LocationSection />
-        <FAQSection />
-        <FinalCtaSection />
+        <ProblemsSectionClassic />
+        <AboutTrainingSectionClassic />
+        <VideoSectionClassic />
+        <TestimonialsSectionClassic />
+        <TrainersSectionClassic />
+        <TrainingContentSectionClassic />
+        <PricingSectionClassic />
+        <LocationSectionClassic />
+        <FAQSectionClassic />
+        <FinalCtaSectionClassic />
       </Suspense>
     </div>
     </LandingPageProvider>

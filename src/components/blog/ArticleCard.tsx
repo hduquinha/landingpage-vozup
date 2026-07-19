@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { getCategoryIcon, type BlogPost } from "@/lib/blogPosts";
 import PlaceholderImage from "@/components/blog/PlaceholderImage";
@@ -28,13 +29,23 @@ const ArticleCard = ({ post }: { post: BlogPost }) => {
             </span>
           </div>
 
-          <button
-            type="button"
-            className="flex flex-shrink-0 items-center gap-1.5 text-sm font-bold text-[#0d94a4] transition group-hover:gap-2.5"
-          >
-            Ler artigo
-            <ArrowRight className="h-4 w-4" />
-          </button>
+          {post.content ? (
+            <Link
+              to={`/blog/${post.id}`}
+              className="flex flex-shrink-0 items-center gap-1.5 text-sm font-bold text-[#0d94a4] transition group-hover:gap-2.5"
+            >
+              Ler artigo
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className="flex flex-shrink-0 items-center gap-1.5 text-sm font-bold text-[#0d94a4] transition group-hover:gap-2.5"
+            >
+              Ler artigo
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          )}
         </div>
       </div>
     </article>

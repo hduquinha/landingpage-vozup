@@ -6,7 +6,7 @@ import { useLandingPage } from "@/context/LandingPageContext";
 
 const stepIcons = [Mic, Activity, MessageSquare, Sparkles];
 
-const VideoSection = () => {
+const VideoSectionClassic = () => {
   const { content } = useLandingPage();
   const steps = content.video.steps.map((step, index) => ({
     icon: stepIcons[index],
@@ -14,40 +14,41 @@ const VideoSection = () => {
   }));
 
   return (
-    <section id="metodo" className="relative overflow-hidden bg-cream-deep px-4 py-10 text-ink sm:px-6 sm:py-14 lg:py-20">
+    <section id="metodo" className="relative overflow-hidden bg-cream-deep px-4 py-14 text-ink sm:px-6 sm:py-20 lg:py-28">
       <div className="absolute inset-0 bg-grid opacity-50" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
-        <div className="grid gap-6 lg:grid-cols-[0.82fr,1.18fr] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[0.82fr,1.18fr] lg:items-center">
           <div>
-            <SectionLabel className="mb-3">{content.video.sectionLabel}</SectionLabel>
+            <SectionLabel className="mb-5">{content.video.sectionLabel}</SectionLabel>
 
             <h2 className="text-2xl font-extrabold leading-[1.1] sm:text-4xl">
+              <span className="text-[#0d94a4]">Curso de Oratória - </span>
               {content.video.headingLine1}
             </h2>
 
-            <p className="mt-3 text-base leading-relaxed text-slate-600 sm:text-lg">
+            <p className="mt-6 text-lg leading-relaxed text-slate-600">
               {content.video.intro}
             </p>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-ink/5 bg-white p-4 shadow-card sm:p-6">
-                <Timer className="mb-2 h-6 w-6 text-[#0d94a4] sm:mb-3 sm:h-7 sm:w-7" />
-                <p className="text-base font-extrabold sm:text-lg">{content.video.cardOneTitle}</p>
-                <p className="mt-1 text-xs text-slate-500 sm:text-sm">
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-ink/5 bg-white p-6 shadow-card">
+                <Timer className="mb-3 h-7 w-7 text-[#0d94a4]" />
+                <p className="text-lg font-extrabold">{content.video.cardOneTitle}</p>
+                <p className="mt-1 text-sm text-slate-500">
                   {content.video.cardOneText}
                 </p>
               </div>
 
-              <div className="relative overflow-hidden rounded-2xl bg-ink p-4 text-white shadow-lift sm:p-6">
+              <div className="relative overflow-hidden rounded-2xl bg-ink p-6 text-white shadow-lift">
                 <div className="absolute inset-0 bg-grid-ink opacity-60" />
 
                 <div className="relative z-10">
-                  <TrendingUp className="mb-2 h-6 w-6 text-[#7BE7EF] sm:mb-3 sm:h-7 sm:w-7" />
-                  <p className="text-base font-extrabold sm:text-lg">
+                  <TrendingUp className="mb-3 h-7 w-7 text-[#7BE7EF]" />
+                  <p className="text-lg font-extrabold">
                     {content.video.cardTwoTitle}
                   </p>
-                  <p className="mt-1 text-xs text-gray-300 sm:text-sm">
+                  <p className="mt-1 text-sm text-gray-300">
                     {content.video.cardTwoText}
                   </p>
                 </div>
@@ -70,29 +71,26 @@ const VideoSection = () => {
             </picture>
 
             <div className="lg:ml-56">
-              <p className="mb-1 text-xs font-bold uppercase tracking-[0.2em] text-[#0d94a4]/70">
-                O treino trabalha 4 pilares
-              </p>
               {steps.map((step, index) => (
                 <div
                   key={step.title}
-                  className="grid gap-2 border-b border-gray-100 py-3 last:border-b-0 sm:grid-cols-[60px,1fr,auto] sm:items-center sm:gap-3"
+                  className="grid gap-3 border-b border-gray-100 py-5 last:border-b-0 sm:grid-cols-[60px,1fr,auto] sm:items-center"
                 >
-                  <span className="font-display text-2xl font-black text-[#0d94a4] sm:text-3xl">
+                  <span className="font-display text-3xl font-black text-[#0d94a4]">
                     0{index + 1}
                   </span>
 
                   <div>
-                    <h3 className="text-lg font-extrabold sm:text-2xl">
+                    <h3 className="text-xl font-extrabold sm:text-2xl">
                       {step.title}
                     </h3>
-                    <p className="mt-0.5 text-xs text-slate-500 sm:text-base">
+                    <p className="mt-1 text-sm text-slate-500 sm:text-base">
                       {step.text}
                     </p>
                   </div>
 
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[#EAFBFC] text-[#0d94a4] sm:h-11 sm:w-11">
-                    <step.icon className="h-5 w-5 sm:h-6 sm:w-6" />
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#EAFBFC] text-[#0d94a4]">
+                    <step.icon className="h-6 w-6" />
                   </span>
                 </div>
               ))}
@@ -104,4 +102,4 @@ const VideoSection = () => {
   );
 };
 
-export default VideoSection;
+export default VideoSectionClassic;

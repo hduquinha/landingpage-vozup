@@ -14,22 +14,52 @@ const LocationSection = lazy(() => import("@/components/LocationSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 const FinalCtaSection = lazy(() => import("@/components/FinalCtaSection"));
 
+const ConsequencesSection = lazy(() => import("@/components/ConsequencesSection"));
+const TransformationSection = lazy(() => import("@/components/TransformationSection"));
+const BenefitsSection = lazy(() => import("@/components/BenefitsSection"));
+const HowClassesWorkSection = lazy(() => import("@/components/HowClassesWorkSection"));
+const DifferentialsSection = lazy(() => import("@/components/DifferentialsSection"));
+
 const LandingPage = ({ profile }: { profile: LandingPageProfile }) => {
+  const isExtended = profile.layout === "extended";
+
   return (
-    <LandingPageProvider origem={profile.origem} content={profile.content}>
+    <LandingPageProvider content={profile.content}>
       <div className="min-h-screen">
         <HeroSection />
         <Suspense fallback={null}>
-          <ProblemsSection />
-          <AboutTrainingSection />
-          <VideoSection />
-          <TestimonialsSection />
-          <TrainersSection />
-          <TrainingContentSection />
-          <PricingSection />
-          <LocationSection />
-          <FAQSection />
-          <FinalCtaSection />
+          {isExtended ? (
+            <>
+              <ProblemsSection />
+              <ConsequencesSection />
+              <TransformationSection />
+              <BenefitsSection />
+              <AboutTrainingSection />
+              <VideoSection />
+              <HowClassesWorkSection />
+              <TrainingContentSection />
+              <TestimonialsSection />
+              <TrainersSection />
+              <DifferentialsSection />
+              <PricingSection />
+              <LocationSection />
+              <FAQSection />
+              <FinalCtaSection />
+            </>
+          ) : (
+            <>
+              <ProblemsSection />
+              <AboutTrainingSection />
+              <VideoSection />
+              <TestimonialsSection />
+              <TrainersSection />
+              <TrainingContentSection />
+              <PricingSection />
+              <LocationSection />
+              <FAQSection />
+              <FinalCtaSection />
+            </>
+          )}
         </Suspense>
       </div>
     </LandingPageProvider>

@@ -47,7 +47,7 @@ const PrivacyPolicy = () => {
 
         <h2>4. Para que usamos seus dados</h2>
         <ul>
-          <li>Entrar em contato para apresentar nossos cursos e agendar aula experimental;</li>
+          <li>Entrar em contato para apresentar nossos cursos e agendar consultoria;</li>
           <li>Dar andamento à matrícula, quando solicitada;</li>
           <li>Enviar informações, novidades e ofertas relacionadas aos nossos serviços;</li>
           <li>Cumprir obrigações legais e regulatórias.</li>

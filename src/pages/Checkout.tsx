@@ -18,7 +18,7 @@ const Checkout = () => {
         <h1 className="text-2xl font-semibold">Redirecionando para o WhatsApp</h1>
         <p className="text-sm text-gray-300">
           Estamos encaminhando você para falar com a equipe da VozUP e agendar
-          sua aula experimental.
+          sua consultoria.
         </p>
         <div className="flex flex-col justify-center gap-3 sm:flex-row">
           <Button

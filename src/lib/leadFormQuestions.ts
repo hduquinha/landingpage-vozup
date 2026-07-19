@@ -2,6 +2,8 @@
  * (LeadForm e o modal do botão flutuante do WhatsApp), para manter as duas
  * telas sempre com o mesmo conteúdo. */
 
+export const professionQuestion = "Qual a sua profissão?";
+
 export const startTimingQuestion =
   "Faltam apenas 2 passos para você eliminar de vez o medo de falar em público e chegar ao nível de excelência na comunicação. Quando pretende começar o curso de Oratória e Inteligência Emocional?";
 
@@ -25,5 +27,8 @@ export const interestReasonOptions = [
 
 export const presencialQuestion =
   "Você conseguiria estar presencialmente, 1x por semana na região do Tatuapé para realização do treinamento presencial?";
+
+export const quickResultsQuestion =
+  "Você quer obter maiores resultados o quanto antes através da sua comunicação?";
 
 export const yesNoOptions = ["Sim", "Não"];

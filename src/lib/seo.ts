@@ -1,3 +1,5 @@
+import { BLOG_POSTS, FEATURED_POST } from "./blogPosts";
+
 export const siteName = "Escola VozUP";
 
 export const businessName = "Escola VozUP de Oratória e Liderança Emocional";
@@ -118,6 +120,20 @@ export const getRouteSeo = (pathname: string): RouteSeo => {
     };
   }
 
+  if (pathname.startsWith("/blog/")) {
+    const slug = pathname.slice("/blog/".length).replace(/\/+$/, "");
+    const post = [FEATURED_POST, ...BLOG_POSTS].find((item) => item.id === slug);
+
+    if (post) {
+      return {
+        title: `${post.title} | Blog VozUP`,
+        description: post.metaDescription ?? post.excerpt,
+        canonical: getCanonicalUrl(pathname),
+        robots: getIndexRobots(),
+      };
+    }
+  }
+
   if (pathname === "/politica-de-privacidade") {
     return {
       title: "Política de Privacidade | VozUP",
@@ -232,7 +248,7 @@ export const buildHomeStructuredData = () => {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Aula experimental de oratória",
+                name: "Consultoria de oratória",
                 serviceType: "Aula presencial de oratória",
                 areaServed: "Tatuapé, São Paulo",
               },

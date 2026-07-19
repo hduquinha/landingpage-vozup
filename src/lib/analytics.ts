@@ -56,13 +56,9 @@ export const trackLeadFormSubmit = (source?: string, goal?: string) => {
 
   trackEvent("generate_lead", params);
 
-  if (typeof window !== "undefined" && typeof window.fbq === "function") {
-    window.fbq("track", "Lead", {
-      content_name: "Aula experimental VozUP",
-      content_category: "Oratória",
-      ...cleanParams(params),
-    });
-  }
+  // O Meta Lead deste formulário já é enviado pelo container GTM no evento
+  // de envio. Dispará-lo também por fbq aqui duplicava a mesma conversão no
+  // Meta Ads (um cadastro confirmado aparecia como dois Leads).
 };
 
 export const trackWhatsAppClick = (source = "landing page VozUP") => {
