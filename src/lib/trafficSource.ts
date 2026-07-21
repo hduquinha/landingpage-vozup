@@ -90,13 +90,20 @@ export function classifyTrafficChannel({
   const medium = compact(utmMedium);
   const content = compact(utmContent);
 
-  if (gclid || source.includes("google")) return "google-ads";
-
   const isExplicitMetaAdsSource = META_ADS_SOURCE_PREFIXES.some((prefix) => source.startsWith(prefix));
   const isMetaOrganicSource = META_ORGANIC_SOURCES.has(source);
   const isPaidMedium = PAID_MEDIUMS.has(medium);
   const isOrganicSocialMedium = ORGANIC_SOCIAL_MEDIUMS.has(medium);
   const isLinkInBio = content.includes("linkinbio");
+
+  // Google só conta como "pago" (Google Ads) com evidência real de mídia paga:
+  // `gclid` (auto-tag do Google Ads em cliques de anúncio) ou fonte google com
+  // meio pago (cpc/ppc/paid...). Uma visita de BUSCA ORGÂNICA chega com
+  // utm_source=google sem gclid e sem meio pago — vira "organico" (Landing Page
+  // VozUP), separando o tráfego pago do orgânico do Google.
+  const isGoogleSource = source.includes("google");
+  if (Boolean(gclid?.trim()) || (isGoogleSource && isPaidMedium)) return "google-ads";
+  if (isGoogleSource) return "organico";
 
   if (isExplicitMetaAdsSource) return "meta";
   if (isPaidMedium && (isMetaOrganicSource || Boolean(fbclid?.trim()))) return "meta";

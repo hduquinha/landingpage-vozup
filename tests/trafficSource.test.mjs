@@ -113,6 +113,39 @@ test("vocabulário pago alternativo permanece alinhado com o servidor", () => {
   );
 });
 
+test("Google Ads: clique com gclid é tráfego pago", () => {
+  assert.equal(
+    classifyTrafficChannel({
+      utmSource: "google",
+      utmMedium: "cpc",
+      gclid: "Cj0KCQjw-paid-click",
+    }),
+    "google-ads",
+  );
+});
+
+test("Google Ads: gclid sozinho já prova mídia paga do Google", () => {
+  assert.equal(classifyTrafficChannel({ gclid: "Cj0KCQjw-paid-click" }), "google-ads");
+});
+
+test("Google Ads: fonte google + meio pago (sem gclid) continua pago", () => {
+  assert.equal(
+    classifyTrafficChannel({ utmSource: "google", utmMedium: "cpc" }),
+    "google-ads",
+  );
+});
+
+test("Google orgânico: busca google sem gclid/meio pago é orgânico, não Ads", () => {
+  assert.equal(
+    classifyTrafficChannel({ utmSource: "google", utmMedium: "organic" }),
+    "organico",
+  );
+});
+
+test("Google orgânico: utm_source=google isolado não infla Google Ads", () => {
+  assert.equal(classifyTrafficChannel({ utmSource: "google" }), "organico");
+});
+
 test("getTrafficSource aplica a regra completa às UTMs da URL", () => {
   const previousWindow = globalThis.window;
   const previousSessionStorage = globalThis.sessionStorage;
